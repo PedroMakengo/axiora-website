@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="pt" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Axiora — Agência de Viagens Premium</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.js"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/main.css">
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav id="navbar">
+    <div class="logo-mark">
+      <a href="/">
+        <img src="assets/images/logo.png" style="width: 200px;" alt="Logo Axiora">
+      </a>
+    </div>
+    <ul>
+      <li><a href="#about">Sobre Nós</a></li>
+      <li><a href="#services">Serviços</a></li>
+      <li><a href="#location">Localização</a></li>
+      <li><a href="#web">Websites</a></li>
+      <li><a href="#contact" class="nav-cta">Contacto</a></li>
+    </ul>
+    <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema">
+      <span class="theme-icon-dark">☽</span>
+      <span class="theme-icon-light">☀</span>
+    </button>
+  </nav>
+
+  <!-- ─── HERO SLIDER ─── -->
+  <section class="hero" id="hero">
+    <div class="slide slide-1 active">
+      <div class="hero-content">
+        <div class="slide-tag">Destino em Destaque</div>
+        <h1 class="slide-title">Santorini,<br><em>Grécia</em></h1>
+        <p class="slide-desc">Casas brancas sobre o mar Egeu, pores do sol inesquecíveis e uma hospitalidade que
+          transforma cada visita numa memória eterna.</p>
+        <div class="slide-actions">
+          <a href="https://wa.me/244945576785" class="btn-primary" target="_blank">Reservar Agora</a>
+          <a href="#services" class="btn-outline">Ver Serviços</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide slide-2">
+      <div class="hero-content">
+        <div class="slide-tag">Experiência Premium</div>
+        <h1 class="slide-title">Maldivas,<br><em>Paraíso</em></h1>
+        <p class="slide-desc">Bangalôs sobre água cristalina, recifes de coral intactos e uma paz que só a natureza mais
+          perfeita do planeta pode oferecer.</p>
+        <div class="slide-actions">
+          <a href="https://wa.me/244945576785" class="btn-primary" target="_blank">Reservar Agora</a>
+          <a href="#services" class="btn-outline">Ver Serviços</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide slide-3">
+      <div class="hero-content">
+        <div class="slide-tag">Aventura Tropical</div>
+        <h1 class="slide-title">Bali,<br><em>Indonésia</em></h1>
+        <p class="slide-desc">Templos milenares entre arrozais, praias de areia vulcânica e uma espiritualidade que
+          revigora a alma de cada viajante.</p>
+        <div class="slide-actions">
+          <a href="https://wa.me/244945576785" class="btn-primary" target="_blank">Reservar Agora</a>
+          <a href="#services" class="btn-outline">Ver Serviços</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide slide-4">
+      <div class="hero-content">
+        <div class="slide-tag">Luxo no Deserto</div>
+        <h1 class="slide-title">Dubai,<br><em>Emirados</em></h1>
+        <p class="slide-desc">Arranha-céus dourados, shopping de luxo e experiências únicas no deserto — onde o futuro e
+          a tradição coexistem em perfeita harmonia.</p>
+        <div class="slide-actions">
+          <a href="https://wa.me/244945576785" class="btn-primary" target="_blank">Reservar Agora</a>
+          <a href="#services" class="btn-outline">Ver Serviços</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide slide-5">
+      <div class="hero-content">
+        <div class="slide-tag">Romance Europeu</div>
+        <h1 class="slide-title">Veneza,<br><em>Itália</em></h1>
+        <p class="slide-desc">Canais que sussurram séculos de história, gôndolas ao pôr do sol e uma arquitetura que
+          desafia o tempo e encanta cada olhar.</p>
+        <div class="slide-actions">
+          <a href="https://wa.me/244945576785" class="btn-primary" target="_blank">Reservar Agora</a>
+          <a href="#services" class="btn-outline">Ver Serviços</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="slider-controls">
+      <div class="slider-dot active" data-index="0"></div>
+      <div class="slider-dot" data-index="1"></div>
+      <div class="slider-dot" data-index="2"></div>
+      <div class="slider-dot" data-index="3"></div>
+      <div class="slider-dot" data-index="4"></div>
+    </div>
+
+    <div class="slider-arrows">
+      <button class="arrow-btn" id="prevBtn">&#8592;</button>
+      <button class="arrow-btn" id="nextBtn">&#8594;</button>
+    </div>
+
+    <div class="slide-counter">
+      <span class="current" id="currentNum">01</span>
+      <div class="line"></div>
+      <span>05</span>
+    </div>
+  </section>
+
+  <!-- ─── SOBRE NÓS ─── -->
+  <section class="about-section" id="about">
+    <div class="about-grid">
+      <div class="about-image-wrapper reveal">
+        <img src="https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?w=900&q=80" alt="Equipa Axiora"
+          loading="lazy" />
+        <div class="about-badge">
+          <strong>12+</strong>
+          <span>Anos de Experiência</span>
+        </div>
+      </div>
+
+      <div class="about-text">
+        <div class="section-label reveal">A Nossa História</div>
+        <h2 class="section-title reveal reveal-delay-1">
+          Uma equipa apaixonada<br>por <em>destinos únicos</em>
+        </h2>
+        <div class="divider reveal reveal-delay-1"></div>
+        <p class="reveal reveal-delay-2">
+          Somos a <strong>Axiora</strong>, uma agência de viagens premium sediada em Luanda, especializada em criar
+          experiências extraordinárias para quem exige mais do que uma simples viagem. Acreditamos que cada jornada deve
+          ser uma história memorável.
+        </p>
+        <p class="reveal reveal-delay-2">
+          Com mais de uma década de experiência, a nossa equipa de especialistas conhece cada detalhe dos melhores
+          destinos do mundo — dos resorts exclusivos nas Maldivas aos safaris inesquecíveis em África.
+        </p>
+
+        <div class="about-stats reveal reveal-delay-3">
+          <div class="stat-item">
+            <span class="stat-number">3.8K</span>
+            <span class="stat-label">Clientes Felizes</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">95+</span>
+            <span class="stat-label">Destinos</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">98%</span>
+            <span class="stat-label">Satisfação</span>
+          </div>
+        </div>
+
+        <div class="reveal reveal-delay-3">
+          <p class="team-label">A Nossa Equipa</p>
+          <div class="team-avatars">
+            <div class="team-avatar"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80"
+                alt="Agente 2" /></div>
+            <div class="team-avatar"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80"
+                alt="Agente 3" /></div>
+            <div class="team-avatar"><img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&q=80"
+                alt="Agente 4" /></div>
+            <div class="team-avatar"><img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&q=80"
+                alt="Agente 5" /></div>
+            <div class="team-more">+6</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SERVIÇOS ─── -->
+  <section class="services-section" id="services">
+    <div class="services-header">
+      <div class="section-label reveal" style="justify-content:center;">O Que Oferecemos</div>
+      <h2 class="section-title reveal reveal-delay-1" style="font-size:clamp(2rem,3.5vw,3rem); text-align:center;">
+        Serviços desenhados para<br>a sua <em>experiência perfeita</em>
+      </h2>
+    </div>
+
+    <div class="services-grid reveal">
+      <!-- Card 1 -->
+      <div class="service-card">
+        <div class="service-img-wrapper">
+          <img class="service-img" src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=700&q=80"
+            alt="Viagens Internacionais" loading="lazy" />
+          <div class="service-overlay"></div>
+        </div>
+        <div class="service-info">
+          <div class="service-icon">✈</div>
+          <h3 class="service-name">Viagens Internacionais</h3>
+          <p class="service-desc">Passagens aéreas, seguros e itinerários personalizados para qualquer destino do mundo,
+            com suporte 24/7.</p>
+          <a href="https://wa.me/244945576785?text=Olá!%20Quero%20saber%20mais%20sobre%20Viagens%20Internacionais."
+            class="service-link" target="_blank">Saber Mais →</a>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="service-card">
+        <div class="service-img-wrapper">
+          <img class="service-img" src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=700&q=80"
+            alt="Reserva de Hotel" loading="lazy" />
+          <div class="service-overlay"></div>
+        </div>
+        <div class="service-info">
+          <div class="service-icon">🏨</div>
+          <h3 class="service-name">Reserva de Hotel</h3>
+          <p class="service-desc">Reservamos os melhores hotéis boutique e resorts 5 estrelas em todo o mundo, com
+            tarifas preferenciais exclusivas.</p>
+          <a href="https://wa.me/244945576785?text=Olá!%20Quero%20fazer%20uma%20reserva%20de%20hotel."
+            class="service-link" target="_blank">Saber Mais →</a>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="service-card">
+        <div class="service-img-wrapper">
+          <img class="service-img" src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=700&q=80"
+            alt="Agendamento de Visto VFS" loading="lazy" />
+          <div class="service-overlay"></div>
+        </div>
+        <div class="service-info">
+          <div class="service-icon">📋</div>
+          <h3 class="service-name">Agendamento de Visto VFS</h3>
+          <p class="service-desc">Tratamos do seu agendamento na VFS Global, orientamos na preparação de documentos e
+            acompanhamos todo o processo.</p>
+          <a href="https://wa.me/244945576785?text=Olá!%20Preciso%20de%20ajuda%20com%20agendamento%20de%20visto%20na%20VFS."
+            class="service-link" target="_blank">Saber Mais →</a>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="service-card">
+        <div class="service-img-wrapper">
+          <img class="service-img" src="https://images.unsplash.com/photo-1530521954074-e64f6810b32d?w=700&q=80"
+            alt="Agendamento de Passaporte" loading="lazy" />
+          <div class="service-overlay"></div>
+        </div>
+        <div class="service-info">
+          <div class="service-icon">📘</div>
+          <h3 class="service-name">Agendamento de Passaporte</h3>
+          <p class="service-desc">Auxiliamos no agendamento e preparação de documentos para emissão e renovação de
+            passaporte de forma rápida e eficiente.</p>
+          <a href="https://wa.me/244945576785?text=Olá!%20Preciso%20de%20ajuda%20com%20agendamento%20de%20passaporte."
+            class="service-link" target="_blank">Saber Mais →</a>
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="service-card">
+        <div class="service-img-wrapper">
+          <img class="service-img" src="https://images.unsplash.com/photo-1548574505-5e239809ee19?w=700&q=80"
+            alt="Lua de Mel" loading="lazy" />
+          <div class="service-overlay"></div>
+        </div>
+        <div class="service-info">
+          <div class="service-icon">💍</div>
+          <h3 class="service-name">Lua de Mel Premium</h3>
+          <p class="service-desc">Pacotes românticos exclusivos com surpresas especiais, desde as Maldivas a Paris,
+            criados para momentos inesquecíveis.</p>
+          <a href="https://wa.me/244945576785?text=Olá!%20Quero%20planear%20uma%20lua%20de%20mel." class="service-link"
+            target="_blank">Saber Mais →</a>
+        </div>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="service-card">
+        <div class="service-img-wrapper">
+          <img class="service-img" src="https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=700&q=80"
+            alt="Safari África" loading="lazy" />
+          <div class="service-overlay"></div>
+        </div>
+        <div class="service-info">
+          <div class="service-icon">🦁</div>
+          <h3 class="service-name">Safari & Aventura</h3>
+          <p class="service-desc">Expedições únicas pelo continente africano e destinos de aventura, com guias
+            especializados e equipamentos de topo.</p>
+          <a href="https://wa.me/244945576785?text=Olá!%20Quero%20saber%20mais%20sobre%20Safari%20e%20Aventura."
+            class="service-link" target="_blank">Saber Mais →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── LOCALIZAÇÃO ─── -->
+  <section class="map-section" id="location">
+    <div class="map-container">
+      <div class="map-info">
+        <div class="section-label" style="margin-bottom:1.5rem;">Onde Estamos</div>
+        <h2 class="section-title" style="font-size:2.2rem; margin-bottom:2rem;">
+          Visite a nossa<br><em>agência em Luanda</em>
+        </h2>
+
+        <div class="map-detail-item">
+          <div class="map-icon">📍</div>
+          <div>
+            <div class="map-detail-label">Endereço</div>
+            <div class="map-detail-value">Rua Rainha Ginga, nº 42<br>Ingombotas, Luanda, Angola</div>
+          </div>
+        </div>
+
+        <div class="map-detail-item">
+          <div class="map-icon">📞</div>
+          <div>
+            <div class="map-detail-label">Telefone / WhatsApp</div>
+            <div class="map-detail-value">+244 945 576 785</div>
+          </div>
+        </div>
+
+        <div class="map-detail-item">
+          <div class="map-icon">✉</div>
+          <div>
+            <div class="map-detail-label">Email</div>
+            <div class="map-detail-value">jorgedossantosdasilva37@gmail.com</div>
+          </div>
+        </div>
+
+        <div class="map-detail-item">
+          <div class="map-icon">🕐</div>
+          <div>
+            <div class="map-detail-label">Horário de Atendimento</div>
+            <div class="map-detail-value">Seg – Sex: 08h00 – 18h00<br>Sábado: 09h00 – 13h00</div>
+          </div>
+        </div>
+
+        <div class="map-contact-btns">
+          <a href="https://wa.me/244945576785?text=Olá!%20Gostaria%20de%20mais%20informações%20sobre%20os%20vossos%20serviços."
+            class="btn-primary" target="_blank">
+            💬 WhatsApp
+          </a>
+          <a href="mailto:jorgedossantosdasilva37@gmail.com" class="btn-outline">
+            ✉ Enviar Email
+          </a>
+        </div>
+      </div>
+
+      <div class="map-embed">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3942.5847929174!2d13.2344!3d-8.8368!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1a51f15cdc8d2c7d%3A0x850c1c6b4d1c9cb!2sIngombotas%2C%20Luanda%2C%20Angola!5e0!3m2!1spt!2sao!4v1234567890"
+          allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          title="Localização Axiora Luanda"></iframe>
+        <div class="map-overlay-badge">
+          <div class="map-badge-logo">
+            <svg width="20" height="20" viewBox="0 0 36 36" fill="none">
+              <polygon points="18,2 34,32 2,32" stroke="currentColor" stroke-width="1.5" fill="none" />
+              <circle cx="18" cy="19" r="2" fill="currentColor" />
+            </svg>
+            <strong>AXIORA</strong>
+          </div>
+          <span>Luanda, Angola</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── PROMOÇÃO WEBSITE ─── -->
+  <section class="promo-section" id="web">
+    <div class="promo-inner">
+      <div>
+        <div class="section-label reveal">Serviço Digital</div>
+        <h2 class="section-title reveal reveal-delay-1">
+          Criamos o website<br>do seu <em>negócio</em>
+        </h2>
+        <p class="promo-intro reveal reveal-delay-2">
+          Além de viagens, a Axiora oferece desenvolvimento de websites profissionais e modernos para empresas que
+          querem marcar presença online com elegância e eficiência.
+        </p>
+
+        <ul class="promo-features reveal reveal-delay-2">
+          <li>Design personalizado e exclusivo</li>
+          <li>Versão mobile totalmente responsiva</li>
+          <li>Otimização SEO para Google incluída</li>
+          <li>Painel de gestão intuitivo (CMS)</li>
+          <li>Integração com redes sociais e WhatsApp</li>
+          <li>Entrega garantida em apenas 2 semanas</li>
+          <li>Suporte técnico pós-lançamento incluído</li>
+        </ul>
+
+        <a href="https://wa.me/244945576785?text=Olá!%20Quero%20saber%20mais%20sobre%20o%20desenvolvimento%20de%20website."
+          class="btn-primary reveal reveal-delay-3" target="_blank">
+          Solicitar Orçamento Grátis
+        </a>
+      </div>
+
+      <div class="promo-badge-wrapper reveal reveal-delay-2">
+        <div class="promo-circle">
+          <div class="promo-price">
+            <sup>AOA</sup> 169K
+          </div>
+          <div class="promo-price-label">Preço Especial</div>
+          <div class="promo-weeks">⚡ Apenas 2 Semanas</div>
+          <div class="promo-sub">Website profissional<br>completo e funcional</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─── -->
+  <footer id="contact">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <img src="assets/images/logo.png" style="width: 200px;" alt="Logo Axiora">
+        </div>
+        <p>A agência de viagens premium de Angola. Transformamos sonhos em destinos reais, com dedicação, elegância e
+          experiência incomparável.</p>
+        <div class="footer-social">
+          <a href="https://facebook.com" class="social-btn" target="_blank" aria-label="Facebook">f</a>
+          <a href="https://linkedin.com" class="social-btn" target="_blank" aria-label="LinkedIn">in</a>
+          <a href="https://instagram.com" class="social-btn" target="_blank" aria-label="Instagram">ig</a>
+          <a href="https://wa.me/244945576785" class="social-btn social-wa" target="_blank" aria-label="WhatsApp">wa</a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Destinos</h4>
+        <ul>
+          <li><a href="#">Europa</a></li>
+          <li><a href="#">Ásia & Pacífico</a></li>
+          <li><a href="#">Américas</a></li>
+          <li><a href="#">Médio Oriente</a></li>
+          <li><a href="#">África</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Serviços</h4>
+        <ul>
+          <li><a href="#">Viagens Internacionais</a></li>
+          <li><a href="#">Reserva de Hotel</a></li>
+          <li><a href="#">Visto VFS</a></li>
+          <li><a href="#">Passaporte</a></li>
+          <li><a href="#">Lua de Mel</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contacto</h4>
+        <ul>
+          <li><a href="https://wa.me/244945576785" target="_blank">+244 945 576 785</a></li>
+          <li><a href="mailto:jorgedossantosdasilva37@gmail.com">jorgedossantosdasilva37<br>@gmail.com</a></li>
+          <li><a href="#about">Sobre Nós</a></li>
+          <li><a href="#web">Websites</a></li>
+          <li><a href="#">Política de Privacidade</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2025 <span>Axiora</span> — Todos os direitos reservados. Luanda, Angola.</p>
+      <p class="footer-license">Licença ATL: nº 2024/LDA/001</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+
+</html>
