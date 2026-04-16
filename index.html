@@ -4,48 +4,81 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Axiora — Agência de Viagens Premium</title>
+  <title>Axiora — Comércio Geral e Prestação de Serviços</title>
 
-  <!-- ── SEO Básico ── -->
   <meta name="description"
-    content="Axiora é uma agência de viagens premium que cria experiências únicas e personalizadas para os destinos mais exclusivos do mundo." />
-  <meta name="keywords" content="agência de viagens, viagens premium, viagens de luxo, destinos exclusivos, Axiora" />
+    content="Axiora é uma empresa de referência em Angola na prestação de serviços: assessoria de viagens, gestão de viaturas, canalização, electricidade, correio e câmbio." />
+  <meta name="keywords"
+    content="agência de viagens Angola, gestão viaturas Luanda, visto VFS Angola, câmbio Luanda, correio internacional Angola, Axiora" />
   <meta name="author" content="Axiora" />
   <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://www.axiora.com/" />
+  <link rel="canonical" href="https://www.axiora.site/" />
 
-  <!-- ── Open Graph (Facebook, WhatsApp, LinkedIn, iMessage…) ── -->
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://www.axiora.com/" />
+  <meta property="og:url" content="https://www.axiora.site/" />
   <meta property="og:site_name" content="Axiora" />
-  <meta property="og:title" content="Axiora — Agência de Viagens Premium" />
+  <meta property="og:title" content="Axiora — Comércio Geral e Prestação de Serviços" />
   <meta property="og:description"
-    content="Experiências de viagem únicas e personalizadas para os destinos mais exclusivos do mundo." />
-  <meta property="og:image" content="https://www.axiora.com/assets/images/og-cover.jpg" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Axiora — Agência de Viagens Premium" />
+    content="Soluções práticas em viagens, gestão de viaturas, manutenção técnica, câmbio e logística em Luanda, Angola." />
+  <meta property="og:image" content="https://www.axiora.site/assets/images/og-cover.jpg" />
   <meta property="og:locale" content="pt_PT" />
 
-  <!-- ── Twitter / X Card ── -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:site" content="@axiora" />
-  <meta name="twitter:title" content="Axiora — Agência de Viagens Premium" />
+  <meta name="twitter:title" content="Axiora — Comércio Geral e Prestação de Serviços" />
   <meta name="twitter:description"
-    content="Experiências de viagem únicas e personalizadas para os destinos mais exclusivos do mundo." />
-  <meta name="twitter:image" content="https://www.axiora.com/assets/images/og-cover.jpg" />
-  <meta name="twitter:image:alt" content="Axiora — Agência de Viagens Premium" />
+    content="Soluções práticas em viagens, gestão de viaturas, manutenção técnica, câmbio e logística em Luanda, Angola." />
 
-  <!-- ── Favicon (recomendado) ── -->
   <link rel="icon" href="/favicon.ico" />
-  <link rel="icon" href="/assets/images/favicon.svg" type="image/svg+xml" />
-  <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png" />
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.js"></script>
   <link
     href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="assets/css/main.css">
+
+  <!-- Material Design Icons (MDI) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css">
+
+  <style>
+    /* Additional styles for MDI icons to maintain consistency */
+    .mvv-icon,
+    .service-icon,
+    .client-type-icon,
+    .map-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .mvv-icon i,
+    .service-icon i,
+    .client-type-icon i,
+    .map-icon i {
+      font-size: inherit;
+    }
+
+    .service-icon i {
+      font-size: 1.8rem;
+    }
+
+    .client-type-icon i {
+      font-size: 2rem;
+    }
+
+    .map-icon i {
+      font-size: 1.5rem;
+    }
+
+    .promo-weeks i {
+      font-size: 1rem;
+      margin-right: 0.25rem;
+    }
+
+    .map-contact-btns .btn-primary i,
+    .map-contact-btns .btn-outline i {
+      margin-right: 0.5rem;
+    }
+  </style>
+
 </head>
 
 <body>
@@ -74,17 +107,16 @@
   <section class="hero" id="hero">
     <div class="slide slide-1 active">
       <div class="hero-content">
-        <div class="slide-tag">Destino em Destaque</div>
+        <div class="slide-tag">Assessoria de Viagens</div>
         <h1 class="slide-title">Santorini,<br><em>Grécia</em></h1>
         <p class="slide-desc">Casas brancas sobre o mar Egeu, pores do sol inesquecíveis e uma hospitalidade que
           transforma cada visita numa memória eterna.</p>
         <div class="slide-actions">
-          <a href="https://wa.me/244938070748" class="btn-primary" target="_blank">Reservar Agora</a>
+          <a href="https://wa.me/244938070748" class="btn-primary" target="_blank">Falar Connosco</a>
           <a href="#services" class="btn-outline">Ver Serviços</a>
         </div>
       </div>
     </div>
-
     <div class="slide slide-2">
       <div class="hero-content">
         <div class="slide-tag">Experiência Premium</div>
@@ -92,12 +124,11 @@
         <p class="slide-desc">Bangalôs sobre água cristalina, recifes de coral intactos e uma paz que só a natureza mais
           perfeita do planeta pode oferecer.</p>
         <div class="slide-actions">
-          <a href="https://wa.me/244938070748" class="btn-primary" target="_blank">Reservar Agora</a>
+          <a href="https://wa.me/244938070748" class="btn-primary" target="_blank">Falar Connosco</a>
           <a href="#services" class="btn-outline">Ver Serviços</a>
         </div>
       </div>
     </div>
-
     <div class="slide slide-3">
       <div class="hero-content">
         <div class="slide-tag">Aventura Tropical</div>
@@ -105,12 +136,11 @@
         <p class="slide-desc">Templos milenares entre arrozais, praias de areia vulcânica e uma espiritualidade que
           revigora a alma de cada viajante.</p>
         <div class="slide-actions">
-          <a href="https://wa.me/244938070748" class="btn-primary" target="_blank">Reservar Agora</a>
+          <a href="https://wa.me/244938070748" class="btn-primary" target="_blank">Falar Connosco</a>
           <a href="#services" class="btn-outline">Ver Serviços</a>
         </div>
       </div>
     </div>
-
     <div class="slide slide-4">
       <div class="hero-content">
         <div class="slide-tag">Luxo no Deserto</div>
@@ -118,25 +148,23 @@
         <p class="slide-desc">Arranha-céus dourados, shopping de luxo e experiências únicas no deserto — onde o futuro e
           a tradição coexistem em perfeita harmonia.</p>
         <div class="slide-actions">
-          <a href="https://wa.me/244938070748" class="btn-primary" target="_blank">Reservar Agora</a>
+          <a href="https://wa.me/244938070748" class="btn-primary" target="_blank">Falar Connosco</a>
           <a href="#services" class="btn-outline">Ver Serviços</a>
         </div>
       </div>
     </div>
-
     <div class="slide slide-5">
       <div class="hero-content">
         <div class="slide-tag">Romance Europeu</div>
         <h1 class="slide-title">Veneza,<br><em>Itália</em></h1>
-        <p class="slide-desc">Canais que sussurram séculos de história, gôndolas ao pôr do sol e uma arquitetura que
+        <p class="slide-desc">Canais que sussurram séculos de história, gôndolas ao pôr do sol e uma arquitectura que
           desafia o tempo e encanta cada olhar.</p>
         <div class="slide-actions">
-          <a href="https://wa.me/244938070748" class="btn-primary" target="_blank">Reservar Agora</a>
+          <a href="https://wa.me/244938070748" class="btn-primary" target="_blank">Falar Connosco</a>
           <a href="#services" class="btn-outline">Ver Serviços</a>
         </div>
       </div>
     </div>
-
     <div class="slider-controls">
       <div class="slider-dot active" data-index="0"></div>
       <div class="slider-dot" data-index="1"></div>
@@ -144,12 +172,10 @@
       <div class="slider-dot" data-index="3"></div>
       <div class="slider-dot" data-index="4"></div>
     </div>
-
     <div class="slider-arrows">
       <button class="arrow-btn" id="prevBtn">&#8592;</button>
       <button class="arrow-btn" id="nextBtn">&#8594;</button>
     </div>
-
     <div class="slide-counter">
       <span class="current" id="currentNum">01</span>
       <div class="line"></div>
@@ -164,39 +190,40 @@
         <img src="https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?w=900&q=80" alt="Equipa Axiora"
           loading="lazy" />
         <div class="about-badge">
-          <strong>12+</strong>
-          <span>Anos de Experiência</span>
+          <strong>2026</strong>
+          <span>Fundada em Luanda</span>
         </div>
       </div>
 
       <div class="about-text">
         <div class="section-label reveal">A Nossa História</div>
         <h2 class="section-title reveal reveal-delay-1">
-          Uma equipa apaixonada<br>por <em>destinos únicos</em>
+          Soluções práticas,<br><em>resultados reais</em>
         </h2>
         <div class="divider reveal reveal-delay-1"></div>
         <p class="reveal reveal-delay-2">
-          Somos a <strong>Axiora</strong>, uma agência de viagens premium sediada em Luanda, especializada em criar
-          experiências extraordinárias para quem exige mais do que uma simples viagem. Acreditamos que cada jornada deve
-          ser uma história memorável.
+          A <strong>Axiora — Comércio Geral e Prestação de Serviços LDA</strong> nasceu em Luanda com uma missão clara:
+          oferecer soluções práticas e confiáveis que facilitam a vida e os negócios dos nossos clientes. Num único
+          lugar, encontra assessoria de viagens, gestão de viaturas, serviços técnicos e apoio logístico.
         </p>
         <p class="reveal reveal-delay-2">
-          Com mais de uma década de experiência, a nossa equipa de especialistas conhece cada detalhe dos melhores
-          destinos do mundo — dos resorts exclusivos nas Maldivas aos safaris inesquecíveis em África.
+          O nosso diferencial está no atendimento próximo, na orientação clara e no foco em soluções rápidas.
+          Acreditamos que <strong>qualidade e transparência</strong> não são opções — são o mínimo que cada cliente
+          merece.
         </p>
 
         <div class="about-stats reveal reveal-delay-3">
           <div class="stat-item">
-            <span class="stat-number">3.8K</span>
-            <span class="stat-label">Clientes Felizes</span>
+            <span class="stat-number">5+</span>
+            <span class="stat-label">Serviços</span>
           </div>
           <div class="stat-item">
-            <span class="stat-number">95+</span>
-            <span class="stat-label">Destinos</span>
+            <span class="stat-number">100%</span>
+            <span class="stat-label">Dedicação</span>
           </div>
           <div class="stat-item">
-            <span class="stat-number">98%</span>
-            <span class="stat-label">Satisfação</span>
+            <span class="stat-number">24/7</span>
+            <span class="stat-label">Suporte WhatsApp</span>
           </div>
         </div>
 
@@ -204,15 +231,61 @@
           <p class="team-label">A Nossa Equipa</p>
           <div class="team-avatars">
             <div class="team-avatar"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80"
-                alt="Agente 2" /></div>
+                alt="Membro da equipa" /></div>
             <div class="team-avatar"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80"
-                alt="Agente 3" /></div>
+                alt="Membro da equipa" /></div>
             <div class="team-avatar"><img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&q=80"
-                alt="Agente 4" /></div>
+                alt="Membro da equipa" /></div>
             <div class="team-avatar"><img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&q=80"
-                alt="Agente 5" /></div>
-            <div class="team-more">+6</div>
+                alt="Membro da equipa" /></div>
+            <div class="team-more">+</div>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── MISSÃO / VISÃO / VALORES ─── -->
+  <section class="mvv-section" id="mvv">
+    <div style="max-width:1200px; margin:0 auto;">
+      <div class="mvv-header">
+        <div class="section-label reveal" style="justify-content:center;">A Nossa Identidade</div>
+        <h2 class="section-title reveal reveal-delay-1" style="text-align:center;">
+          Guiados por propósito,<br><em>movidos por resultados</em>
+        </h2>
+      </div>
+      <div class="mvv-grid">
+        <!-- Missão -->
+        <div class="mvv-card reveal">
+          <div class="mvv-number">01</div>
+          <div class="mvv-icon"><i class="mdi mdi-bullseye"></i></div>
+          <h3 class="mvv-title">Missão</h3>
+          <p class="mvv-text">Prestar serviços com qualidade, transparência e eficiência, oferecendo soluções práticas
+            nas áreas de assessoria de viagens, gestão de viaturas, serviços técnicos e apoio logístico — facilitando a
+            vida e os negócios dos nossos clientes.</p>
+        </div>
+        <!-- Visão -->
+        <div class="mvv-card reveal reveal-delay-1">
+          <div class="mvv-number">02</div>
+          <div class="mvv-icon"><i class="mdi mdi-telescope"></i></div>
+          <h3 class="mvv-title">Visão</h3>
+          <p class="mvv-text">Tornar-nos uma empresa de referência em Angola na prestação de serviços e comercialização,
+            destacando-nos pela confiança, qualidade, profissionalismo e pelos resultados que geramos para os nossos
+            clientes.</p>
+        </div>
+        <!-- Valores -->
+        <div class="mvv-card reveal reveal-delay-2">
+          <div class="mvv-number">03</div>
+          <div class="mvv-icon"><i class="mdi mdi-diamond-stone"></i></div>
+          <h3 class="mvv-title">Valores</h3>
+          <ul class="values-list">
+            <li>Integridade</li>
+            <li>Responsabilidade</li>
+            <li>Profissionalismo</li>
+            <li>Transparência</li>
+            <li>Compromisso com o cliente</li>
+            <li>Qualidade nos serviços</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -223,7 +296,7 @@
     <div class="services-header">
       <div class="section-label reveal" style="justify-content:center;">O Que Oferecemos</div>
       <h2 class="section-title reveal reveal-delay-1" style="font-size:clamp(2rem,3.5vw,3rem); text-align:center;">
-        Serviços desenhados para<br>a sua <em>experiência perfeita</em>
+        Serviços essenciais,<br>num único <em>lugar de confiança</em>
       </h2>
     </div>
 
@@ -231,16 +304,16 @@
       <!-- Card 1 -->
       <div class="service-card">
         <div class="service-img-wrapper">
-          <img class="service-img" src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=700&q=80"
-            alt="Viagens Internacionais" loading="lazy" />
+          <img class="service-img" src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=700&q=80"
+            alt="Assessoria de Vistos" loading="lazy" />
           <div class="service-overlay"></div>
         </div>
         <div class="service-info">
-          <div class="service-icon">✈</div>
-          <h3 class="service-name">Viagens Internacionais</h3>
-          <p class="service-desc">Passagens aéreas, seguros e itinerários personalizados para qualquer destino do mundo,
-            com suporte 24/7.</p>
-          <a href="https://wa.me/244938070748?text=Olá!%20Quero%20saber%20mais%20sobre%20Viagens%20Internacionais."
+          <div class="service-icon"><i class="mdi mdi-file-document-outline"></i></div>
+          <h3 class="service-name">Assessoria de Vistos VFS</h3>
+          <p class="service-desc">Orientação na preparação de documentos, preenchimento de formulários e acompanhamento
+            completo do processo de visto junto à VFS Global.</p>
+          <a href="https://wa.me/244938070748?text=Olá!%20Preciso%20de%20ajuda%20com%20visto%20VFS."
             class="service-link" target="_blank">Saber Mais →</a>
         </div>
       </div>
@@ -248,16 +321,16 @@
       <!-- Card 2 -->
       <div class="service-card">
         <div class="service-img-wrapper">
-          <img class="service-img" src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=700&q=80"
-            alt="Reserva de Hotel" loading="lazy" />
+          <img class="service-img" src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=700&q=80"
+            alt="Gestão de Viaturas" loading="lazy" />
           <div class="service-overlay"></div>
         </div>
         <div class="service-info">
-          <div class="service-icon">🏨</div>
-          <h3 class="service-name">Reserva de Hotel</h3>
-          <p class="service-desc">Reservamos os melhores hotéis boutique e resorts 5 estrelas em todo o mundo, com
-            tarifas preferenciais exclusivas.</p>
-          <a href="https://wa.me/244938070748?text=Olá!%20Quero%20fazer%20uma%20reserva%20de%20hotel."
+          <div class="service-icon"><i class="mdi mdi-car"></i></div>
+          <h3 class="service-name">Gestão de Viaturas</h3>
+          <p class="service-desc">Administração e gestão profissional de viaturas ligeiras e pesadas com o objectivo de
+            gerar rendimento de forma organizada e eficiente.</p>
+          <a href="https://wa.me/244938070748?text=Olá!%20Quero%20saber%20mais%20sobre%20gestão%20de%20viaturas."
             class="service-link" target="_blank">Saber Mais →</a>
         </div>
       </div>
@@ -265,16 +338,16 @@
       <!-- Card 3 -->
       <div class="service-card">
         <div class="service-img-wrapper">
-          <img class="service-img" src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=700&q=80"
-            alt="Agendamento de Visto VFS" loading="lazy" />
+          <img class="service-img" src="https://images.unsplash.com/photo-1530521954074-e64f6810b32d?w=700&q=80"
+            alt="Agendamento de Passaporte" loading="lazy" />
           <div class="service-overlay"></div>
         </div>
         <div class="service-info">
-          <div class="service-icon">📋</div>
-          <h3 class="service-name">Agendamento de Visto VFS</h3>
-          <p class="service-desc">Tratamos do seu agendamento na VFS Global, orientamos na preparação de documentos e
-            acompanhamos todo o processo.</p>
-          <a href="https://wa.me/244938070748?text=Olá!%20Preciso%20de%20ajuda%20com%20agendamento%20de%20visto%20na%20VFS."
+          <div class="service-icon"><i class="mdi mdi-book-open-page-variant"></i></div>
+          <h3 class="service-name">Agendamento de Passaporte</h3>
+          <p class="service-desc">Auxílio no agendamento e preparação de documentos para emissão e renovação de
+            passaporte, de forma rápida e eficiente.</p>
+          <a href="https://wa.me/244938070748?text=Olá!%20Preciso%20de%20ajuda%20com%20agendamento%20de%20passaporte."
             class="service-link" target="_blank">Saber Mais →</a>
         </div>
       </div>
@@ -282,16 +355,16 @@
       <!-- Card 4 -->
       <div class="service-card">
         <div class="service-img-wrapper">
-          <img class="service-img" src="https://images.unsplash.com/photo-1530521954074-e64f6810b32d?w=700&q=80"
-            alt="Agendamento de Passaporte" loading="lazy" />
+          <img class="service-img" src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=700&q=80"
+            alt="Canalização e Electricidade" loading="lazy" />
           <div class="service-overlay"></div>
         </div>
         <div class="service-info">
-          <div class="service-icon">📘</div>
-          <h3 class="service-name">Agendamento de Passaporte</h3>
-          <p class="service-desc">Auxiliamos no agendamento e preparação de documentos para emissão e renovação de
-            passaporte de forma rápida e eficiente.</p>
-          <a href="https://wa.me/244938070748?text=Olá!%20Preciso%20de%20ajuda%20com%20agendamento%20de%20passaporte."
+          <div class="service-icon"><i class="mdi mdi-wrench"></i></div>
+          <h3 class="service-name">Canalização & Electricidade</h3>
+          <p class="service-desc">Instalação, manutenção e reparação de sistemas eléctricos e de canalização residencial
+            e comercial, com profissionais qualificados.</p>
+          <a href="https://wa.me/244938070748?text=Olá!%20Preciso%20de%20serviços%20de%20canalização%20ou%20electricidade."
             class="service-link" target="_blank">Saber Mais →</a>
         </div>
       </div>
@@ -299,34 +372,194 @@
       <!-- Card 5 -->
       <div class="service-card">
         <div class="service-img-wrapper">
-          <img class="service-img" src="https://images.unsplash.com/photo-1548574505-5e239809ee19?w=700&q=80"
-            alt="Lua de Mel" loading="lazy" />
+          <img class="service-img" src="https://images.unsplash.com/photo-1580519542036-c47de6196ba5?w=700&q=80"
+            alt="Conversão Cambial" loading="lazy" />
           <div class="service-overlay"></div>
         </div>
         <div class="service-info">
-          <div class="service-icon">💍</div>
-          <h3 class="service-name">Lua de Mel Premium</h3>
-          <p class="service-desc">Pacotes românticos exclusivos com surpresas especiais, desde as Maldivas a Paris,
-            criados para momentos inesquecíveis.</p>
-          <a href="https://wa.me/244938070748?text=Olá!%20Quero%20planear%20uma%20lua%20de%20mel." class="service-link"
-            target="_blank">Saber Mais →</a>
+          <div class="service-icon"><i class="mdi mdi-currency-usd"></i></div>
+          <h3 class="service-name">Conversão Cambial</h3>
+          <p class="service-desc">Serviço de troca de moedas estrangeiras, incluindo Euro (€) e Dólar (USD), com taxas
+            competitivas e atendimento personalizado.</p>
+          <a href="https://wa.me/244938070748?text=Olá!%20Quero%20saber%20mais%20sobre%20conversão%20cambial."
+            class="service-link" target="_blank">Saber Mais →</a>
         </div>
       </div>
 
       <!-- Card 6 -->
       <div class="service-card">
         <div class="service-img-wrapper">
-          <img class="service-img" src="https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=700&q=80"
-            alt="Safari África" loading="lazy" />
+          <img class="service-img"
+            src="https://images.unsplash.com/photo-1559057287-ce0f595679a8?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="Correio Nacional e Internacional" loading="lazy" />
           <div class="service-overlay"></div>
         </div>
         <div class="service-info">
-          <div class="service-icon">🦁</div>
-          <h3 class="service-name">Safari & Aventura</h3>
-          <p class="service-desc">Expedições únicas pelo continente africano e destinos de aventura, com guias
-            especializados e equipamentos de topo.</p>
-          <a href="https://wa.me/244938070748?text=Olá!%20Quero%20saber%20mais%20sobre%20Safari%20e%20Aventura."
+          <div class="service-icon"><i class="mdi mdi-package-variant"></i></div>
+          <h3 class="service-name">Correio Nacional & Internacional</h3>
+          <p class="service-desc">Envio seguro de documentos e encomendas para diferentes províncias angolanas e para o
+            exterior, com rastreamento e confirmação de entrega.</p>
+          <a href="https://wa.me/244938070748?text=Olá!%20Quero%20enviar%20um%20documento%20ou%20encomenda."
             class="service-link" target="_blank">Saber Mais →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── DIFERENCIAIS ─── -->
+  <section class="diff-section">
+    <div class="diff-inner">
+      <div class="diff-image-wrap reveal">
+        <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=900&q=80" alt="Axiora atendimento"
+          loading="lazy" />
+        <div class="diff-founding">
+          <strong>2026</strong>
+          <span>Fundada</span>
+        </div>
+      </div>
+      <div>
+        <div class="section-label reveal">Porquê Escolher-nos</div>
+        <h2 class="section-title reveal reveal-delay-1">
+          O que nos<br><em>torna diferentes</em>
+        </h2>
+        <div class="divider reveal reveal-delay-1"></div>
+        <ul class="diff-list reveal reveal-delay-2">
+          <li>
+            <div class="diff-num">01</div>
+            <div class="diff-list-text">
+              <strong>Múltiplos serviços, um só lugar</strong>
+              <p>Da assessoria de viagens à manutenção técnica — resolvemos tudo sem que precise de ir a outro sítio.
+              </p>
+            </div>
+          </li>
+          <li>
+            <div class="diff-num">02</div>
+            <div class="diff-list-text">
+              <strong>Atendimento próximo e personalizado</strong>
+              <p>Cada cliente é único. Orientamos com clareza, passo a passo, até que o processo esteja concluído.</p>
+            </div>
+          </li>
+          <li>
+            <div class="diff-num">03</div>
+            <div class="diff-list-text">
+              <strong>Rapidez e confiança garantidas</strong>
+              <p>Valorizamos o tempo dos nossos clientes. Soluções ágeis, sem burocracia desnecessária.</p>
+            </div>
+          </li>
+          <li>
+            <div class="diff-num">04</div>
+            <div class="diff-list-text">
+              <strong>Transparência em tudo que fazemos</strong>
+              <p>Informação clara sobre preços, prazos e processos. Sem surpresas, sem letras pequenas.</p>
+            </div>
+          </li>
+        </ul>
+        <a href="https://wa.me/244938070748?text=Olá!%20Quero%20saber%20mais%20sobre%20os%20serviços%20da%20Axiora."
+          class="btn-primary reveal reveal-delay-3" target="_blank">
+          Falar com a Equipa
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── QUEM SÃO OS NOSSOS CLIENTES ─── -->
+  <section class="clients-section">
+    <div class="clients-label reveal">Servimos com Excelência</div>
+    <div class="clients-types reveal reveal-delay-1">
+      <div class="client-type">
+        <span class="client-type-icon"><i class="mdi mdi-account"></i></span>
+        <div class="client-type-label">Particulares<br>& Famílias</div>
+      </div>
+      <div class="client-type">
+        <span class="client-type-icon"><i class="mdi mdi-briefcase"></i></span>
+        <div class="client-type-label">Profissionais<br>Independentes</div>
+      </div>
+      <div class="client-type">
+        <span class="client-type-icon"><i class="mdi mdi-office-building"></i></span>
+        <div class="client-type-label">Pequenas &<br>Médias Empresas</div>
+      </div>
+      <div class="client-type">
+        <span class="client-type-icon"><i class="mdi mdi-car-side"></i></span>
+        <div class="client-type-label">Proprietários<br>de Viaturas</div>
+      </div>
+      <div class="client-type">
+        <span class="client-type-icon"><i class="mdi mdi-earth"></i></span>
+        <div class="client-type-label">Clientes com<br>Operações Internacionais</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── TESTEMUNHOS ─── -->
+  <section class="testimonials-section" id="testimonials">
+    <div style="max-width:1200px; margin:0 auto;">
+      <div class="testimonials-header">
+        <div class="section-label reveal" style="justify-content:center;">Testemunhos</div>
+        <h2 class="section-title reveal reveal-delay-1" style="text-align:center;">
+          O que dizem os<br><em>nossos clientes</em>
+        </h2>
+      </div>
+      <div class="testimonials-grid">
+        <!-- Testemunho 1 -->
+        <div class="testimonial-card reveal">
+          <div class="quote-mark">"</div>
+          <div class="testimonial-stars">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span
+              class="star">★</span><span class="star">★</span>
+          </div>
+          <p class="testimonial-text">A Axiora tratou de todo o meu processo de visto com uma eficiência que não
+            esperava. Em menos de uma semana tinha tudo resolvido. Recomendo sem hesitar a qualquer pessoa que precise
+            de apoio neste processo.</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80" alt="Cliente" />
+            </div>
+            <div>
+              <span class="author-name">Carlos M.</span>
+              <span class="author-role">Empresário, Luanda</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testemunho 2 -->
+        <div class="testimonial-card reveal reveal-delay-1">
+          <div class="quote-mark">"</div>
+          <div class="testimonial-stars">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span
+              class="star">★</span><span class="star">★</span>
+          </div>
+          <p class="testimonial-text">Entreguei a minha viatura à equipa da Axiora para gestão e os resultados superaram
+            as expectativas. Atendimento profissional, relatórios transparentes e rendimento garantido. Excelente
+            trabalho!</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">
+              <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80" alt="Cliente" />
+            </div>
+            <div>
+              <span class="author-name">Ana P.</span>
+              <span class="author-role">Profissional Liberal, Luanda</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testemunho 3 -->
+        <div class="testimonial-card reveal reveal-delay-2">
+          <div class="quote-mark">"</div>
+          <div class="testimonial-stars">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span
+              class="star">★</span><span class="star">★</span>
+          </div>
+          <p class="testimonial-text">Precisava enviar documentos urgentes para o exterior e a Axiora resolveu em tempo
+            recorde. Serviço de correio rápido, seguro e com confirmação de entrega. Fiquei muito satisfeito com o
+            atendimento.</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">
+              <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&q=80" alt="Cliente" />
+            </div>
+            <div>
+              <span class="author-name">João F.</span>
+              <span class="author-role">Director Comercial</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -338,35 +571,35 @@
       <div class="map-info">
         <div class="section-label" style="margin-bottom:1.5rem;">Onde Estamos</div>
         <h2 class="section-title" style="font-size:2.2rem; margin-bottom:2rem;">
-          Visite a nossa<br><em>agência em Luanda</em>
+          Visite a nossa<br><em>sede em Luanda</em>
         </h2>
 
         <div class="map-detail-item">
-          <div class="map-icon">📍</div>
+          <div class="map-icon"><i class="mdi mdi-map-marker"></i></div>
           <div>
             <div class="map-detail-label">Endereço</div>
-            <div class="map-detail-value">São Paulo, <br>Antigo arreio frente à esquadra móvel, Luanda, Angola</div>
+            <div class="map-detail-value">São Paulo, Edifício perto das bombas da Pumangol,<br>Luanda, Angola</div>
           </div>
         </div>
 
         <div class="map-detail-item">
-          <div class="map-icon">📞</div>
+          <div class="map-icon"><i class="mdi mdi-phone"></i></div>
           <div>
             <div class="map-detail-label">Telefone / WhatsApp</div>
-            <div class="map-detail-value">+244 945 576 785</div>
+            <div class="map-detail-value">+244 938 070 748</div>
           </div>
         </div>
 
         <div class="map-detail-item">
-          <div class="map-icon">✉</div>
+          <div class="map-icon"><i class="mdi mdi-email"></i></div>
           <div>
             <div class="map-detail-label">Email</div>
-            <div class="map-detail-value">axiora7@gmail.com@gmail.com</div>
+            <div class="map-detail-value">axiora7@gmail.com</div>
           </div>
         </div>
 
         <div class="map-detail-item">
-          <div class="map-icon">🕐</div>
+          <div class="map-icon"><i class="mdi mdi-clock-outline"></i></div>
           <div>
             <div class="map-detail-label">Horário de Atendimento</div>
             <div class="map-detail-value">Seg – Sex: 08h00 – 18h00<br>Sábado: 09h00 – 13h00</div>
@@ -376,10 +609,10 @@
         <div class="map-contact-btns">
           <a href="https://wa.me/244938070748?text=Olá!%20Gostaria%20de%20mais%20informações%20sobre%20os%20vossos%20serviços."
             class="btn-primary" target="_blank">
-            💬 WhatsApp
+            <i class="mdi mdi-whatsapp"></i> WhatsApp
           </a>
-          <a href="mailto:axiora7@gmail.com@gmail.com" class="btn-outline">
-            ✉ Enviar Email
+          <a href="mailto:axiora7@gmail.com" class="btn-outline">
+            <i class="mdi mdi-email-outline"></i> Enviar Email
           </a>
         </div>
       </div>
@@ -392,7 +625,7 @@
         <div class="map-overlay-badge">
           <div class="map-badge-logo">
             <a href="/">
-              <img src="assets/images/logo.png" style="width: 200px;" alt="Logo Axiora">
+              <img src="assets/images/logo.png" style="width: 160px;" alt="Logo Axiora">
             </a>
           </div>
           <span>Luanda, Angola</span>
@@ -410,14 +643,14 @@
           Criamos o website<br>do seu <em>negócio</em>
         </h2>
         <p class="promo-intro reveal reveal-delay-2">
-          Além de viagens, a Axiora oferece desenvolvimento de websites profissionais e modernos para empresas que
-          querem marcar presença online com elegância e eficiência.
+          Além dos nossos serviços, a Axiora desenvolve websites profissionais e modernos para empresas que querem
+          marcar presença online com elegância e eficiência.
         </p>
 
         <ul class="promo-features reveal reveal-delay-2">
           <li>Design personalizado e exclusivo</li>
           <li>Versão mobile totalmente responsiva</li>
-          <li>Otimização SEO para Google incluída</li>
+          <li>Optimização SEO para Google incluída</li>
           <li>Integração com redes sociais e WhatsApp</li>
           <li>Entrega garantida em apenas 2 semanas</li>
           <li>Suporte técnico pós-lançamento incluído</li>
@@ -435,7 +668,7 @@
             <sup>AOA</sup> 169K
           </div>
           <div class="promo-price-label">Preço Especial</div>
-          <div class="promo-weeks">⚡ Apenas 2 Semanas</div>
+          <div class="promo-weeks"><i class="mdi mdi-flash"></i> Apenas 2 Semanas</div>
           <div class="promo-sub">Website profissional<br>completo e funcional</div>
         </div>
       </div>
@@ -449,8 +682,8 @@
         <div class="footer-logo">
           <img src="assets/images/logo.png" style="width: 200px;" alt="Logo Axiora">
         </div>
-        <p>A agência de viagens premium de Angola. Transformamos sonhos em destinos reais, com dedicação, elegância e
-          experiência incomparável.</p>
+        <p>Axiora — Comércio Geral e Prestação de Serviços LDA. Soluções práticas e confiáveis em Luanda: viagens,
+          viaturas, técnica, câmbio e logística.</p>
         <div class="footer-social">
           <a href="https://facebook.com" class="social-btn" target="_blank" aria-label="Facebook">f</a>
           <a href="https://linkedin.com" class="social-btn" target="_blank" aria-label="LinkedIn">in</a>
@@ -460,42 +693,43 @@
       </div>
 
       <div class="footer-col">
-        <h4>Destinos</h4>
+        <h4>Serviços</h4>
         <ul>
-          <li><a href="#">Europa</a></li>
-          <li><a href="#">Ásia & Pacífico</a></li>
-          <li><a href="#">Américas</a></li>
-          <li><a href="#">Médio Oriente</a></li>
-          <li><a href="#">África</a></li>
+          <li><a href="#services">Assessoria de Vistos VFS</a></li>
+          <li><a href="#services">Gestão de Viaturas</a></li>
+          <li><a href="#services">Agendamento de Passaporte</a></li>
+          <li><a href="#services">Canalização & Electricidade</a></li>
+          <li><a href="#services">Conversão Cambial</a></li>
+          <li><a href="#services">Correio Nacional & Internacional</a></li>
         </ul>
       </div>
 
       <div class="footer-col">
-        <h4>Serviços</h4>
+        <h4>Empresa</h4>
         <ul>
-          <li><a href="#">Viagens Internacionais</a></li>
-          <li><a href="#">Reserva de Hotel</a></li>
-          <li><a href="#">Visto VFS</a></li>
-          <li><a href="#">Passaporte</a></li>
-          <li><a href="#">Lua de Mel</a></li>
+          <li><a href="#about">Sobre Nós</a></li>
+          <li><a href="#mvv">Missão & Visão</a></li>
+          <li><a href="#testimonials">Testemunhos</a></li>
+          <li><a href="#web">Websites</a></li>
+          <li><a href="#">Política de Privacidade</a></li>
         </ul>
       </div>
 
       <div class="footer-col">
         <h4>Contacto</h4>
         <ul>
-          <li><a href="https://wa.me/244938070748" target="_blank">+244 945 576 785</a></li>
-          <li><a href="mailto:axiora7@gmail.com@gmail.com">axiora7@gmail.com<br>@gmail.com</a></li>
-          <li><a href="#about">Sobre Nós</a></li>
-          <li><a href="#web">Websites</a></li>
-          <li><a href="#">Política de Privacidade</a></li>
+          <li><a href="https://wa.me/244938070748" target="_blank">+244 938 070 748</a></li>
+          <li><a href="mailto:axiora7@gmail.com">axiora7@gmail.com</a></li>
+          <li><a href="#location">São Paulo, Luanda</a></li>
+          <li><a href="#location">Seg–Sex: 08h–18h</a></li>
+          <li><a href="#location">Sáb: 09h–13h</a></li>
         </ul>
       </div>
     </div>
 
     <div class="footer-bottom">
-      <p>© 2025 <span>Axiora</span> — Todos os direitos reservados. Luanda, Angola.</p>
-      <p class="footer-license">Licença ATL: nº 2024/LDA/001</p>
+      <p>© 2026 <span>Axiora</span> — Comércio Geral e Prestação de Serviços LDA. Todos os direitos reservados.</p>
+      <p class="footer-license">Luanda, Angola</p>
     </div>
   </footer>
 
