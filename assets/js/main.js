@@ -3,121 +3,127 @@
 ═══════════════════════════════════════════ */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // ─── DARK / LIGHT MODE ───
-  const html = document.documentElement
-  const toggleBtn = document.getElementById('themeToggle')
+  // ─── HEADER: sombra ao fazer scroll ───
+  const header = document.getElementById('header')
+  const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 10)
+  window.addEventListener('scroll', onScroll, { passive: true })
+  onScroll()
 
-  // Carregar tema guardado ou usar dark por padrão
-  const savedTheme = localStorage.getItem('axiora-theme') || 'dark'
-  html.setAttribute('data-theme', savedTheme)
+  // ─── MENU MOBILE ───
+  const menuToggle = document.getElementById('menuToggle')
+  const nav = document.getElementById('nav')
 
-  toggleBtn.addEventListener('click', () => {
-    const current = html.getAttribute('data-theme')
-    const next = current === 'dark' ? 'light' : 'dark'
-    html.setAttribute('data-theme', next)
-    localStorage.setItem('axiora-theme', next)
+  function setMenu(open) {
+    document.body.classList.toggle('menu-open', open)
+    menuToggle.setAttribute('aria-expanded', String(open))
+    menuToggle.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu')
+    document.body.style.overflow = open ? 'hidden' : ''
+  }
+
+  menuToggle.addEventListener('click', () => setMenu(!document.body.classList.contains('menu-open')))
+  nav.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenu(false)))
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') setMenu(false)
   })
-
-  // ─── NAVBAR SCROLL ───
-  const navbar = document.getElementById('navbar')
-  window.addEventListener(
-    'scroll',
-    () => {
-      navbar.classList.toggle('scrolled', window.scrollY > 80)
-    },
-    { passive: true },
-  )
+  window.matchMedia('(min-width: 1025px)').addEventListener('change', (e) => {
+    if (e.matches) setMenu(false)
+  })
 
   // ─── HERO SLIDER ───
-  const slides = document.querySelectorAll('.slide')
-  const dots = document.querySelectorAll('.slider-dot')
-  const currentNum = document.getElementById('currentNum')
+  // O avanço automático é conduzido pelo fim da animação da barra de progresso,
+  // por isso pausar a animação (hover / separador oculto) pausa também o slider.
+  const hero = document.getElementById('hero')
+  const slides = hero.querySelectorAll('.hero-slide')
+  const tabs = hero.querySelectorAll('.hero-tab')
   let current = 0
-  let timer = null
 
   function goTo(index) {
-    slides[current].classList.remove('active')
-    dots[current].classList.remove('active')
-    current = (index + slides.length) % slides.length
-    slides[current].classList.add('active')
-    dots[current].classList.add('active')
-    currentNum.textContent = String(current + 1).padStart(2, '0')
+    const next = (index + slides.length) % slides.length
+    if (next === current) return
+    slides[current].classList.remove('is-active')
+    tabs[current].classList.remove('is-active')
+    tabs[current].setAttribute('aria-selected', 'false')
+    current = next
+    slides[current].classList.add('is-active')
+    tabs[current].classList.add('is-active')
+    tabs[current].setAttribute('aria-selected', 'true')
   }
 
-  function startAuto() {
-    timer = setInterval(() => goTo(current + 1), 5500)
-  }
-
-  function resetAuto() {
-    clearInterval(timer)
-    startAuto()
-  }
-
-  document.getElementById('nextBtn').addEventListener('click', () => {
-    goTo(current + 1)
-    resetAuto()
-  })
-  document.getElementById('prevBtn').addEventListener('click', () => {
-    goTo(current - 1)
-    resetAuto()
-  })
-
-  dots.forEach((dot) => {
-    dot.addEventListener('click', () => {
-      goTo(+dot.dataset.index)
-      resetAuto()
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => goTo(+tab.dataset.index))
+    tab.querySelector('.hero-tab-bar span').addEventListener('animationend', () => {
+      if (tab.classList.contains('is-active')) goTo(current + 1)
     })
   })
+  document.getElementById('heroNext').addEventListener('click', () => goTo(current + 1))
+  document.getElementById('heroPrev').addEventListener('click', () => goTo(current - 1))
 
-  // Swipe support (mobile)
+  const pause = (on) => hero.classList.toggle('is-paused', on)
+  hero.addEventListener('mouseenter', () => pause(true))
+  hero.addEventListener('mouseleave', () => pause(false))
+  hero.addEventListener('focusin', () => pause(true))
+  hero.addEventListener('focusout', () => pause(false))
+  document.addEventListener('visibilitychange', () => pause(document.hidden))
+
   let touchStartX = 0
-  const hero = document.getElementById('hero')
-
-  hero.addEventListener(
-    'touchstart',
-    (e) => {
-      touchStartX = e.touches[0].clientX
-    },
-    { passive: true },
-  )
+  hero.addEventListener('touchstart', (e) => (touchStartX = e.touches[0].clientX), { passive: true })
   hero.addEventListener(
     'touchend',
     (e) => {
       const diff = touchStartX - e.changedTouches[0].clientX
-      if (Math.abs(diff) > 50) {
-        diff > 0 ? goTo(current + 1) : goTo(current - 1)
-        resetAuto()
-      }
+      if (Math.abs(diff) > 50) goTo(diff > 0 ? current + 1 : current - 1)
     },
     { passive: true },
   )
 
-  startAuto()
+  // ─── MISSÃO / VISÃO / VALORES ───
+  const mvvTabs = document.querySelectorAll('.mvv-tab')
+  const mvvPanels = document.querySelectorAll('.mvv-panel')
+  mvvTabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      mvvTabs.forEach((t) => {
+        t.classList.toggle('is-active', t === tab)
+        t.setAttribute('aria-selected', String(t === tab))
+      })
+      mvvPanels.forEach((p) => (p.hidden = p.dataset.panel !== tab.dataset.tab))
+    })
+  })
+
+  // ─── NAV: secção actual ───
+  const navLinks = [...nav.querySelectorAll('ul a')]
+  const sectionObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return
+        navLinks.forEach((a) => a.classList.toggle('is-current', a.getAttribute('href') === '#' + entry.target.id))
+      })
+    },
+    { rootMargin: '-45% 0px -50% 0px' },
+  )
+  navLinks.forEach((a) => {
+    const section = document.querySelector(a.getAttribute('href'))
+    if (section) sectionObserver.observe(section)
+  })
 
   // ─── SCROLL REVEAL ───
-  const revealEls = document.querySelectorAll('.reveal')
-  const observer = new IntersectionObserver(
+  const revealObserver = new IntersectionObserver(
     (entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting) {
-          e.target.classList.add('visible')
-          observer.unobserve(e.target)
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible')
+          revealObserver.unobserve(entry.target)
         }
       })
     },
-    { threshold: 0.12 },
+    { threshold: 0.12, rootMargin: '0px 0px -40px 0px' },
   )
-
-  revealEls.forEach((el) => observer.observe(el))
-
-  // ─── SMOOTH SCROLL ───
-  document.querySelectorAll('a[href^="#"]').forEach((a) => {
-    a.addEventListener('click', (e) => {
-      const target = document.querySelector(a.getAttribute('href'))
-      if (target) {
-        e.preventDefault()
-        target.scrollIntoView({ behavior: 'smooth' })
-      }
-    })
+  document.querySelectorAll('.reveal').forEach((el) => {
+    // pequeno escalonamento entre elementos irmãos (cartões em grelha)
+    const siblings = [...el.parentElement.children].filter((c) => c.classList.contains('reveal'))
+    el.style.transitionDelay = `${Math.min(siblings.indexOf(el), 4) * 80}ms`
+    revealObserver.observe(el)
   })
+
+  // ─── ANO NO RODAPÉ ───
+  document.getElementById('year').textContent = new Date().getFullYear()
 })
