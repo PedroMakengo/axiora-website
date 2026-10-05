@@ -29,10 +29,43 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.matches) setMenu(false)
   })
 
+  // ─── SUBMENU "QUEM SOMOS" ───
+  // Desktop: abre ao passar o rato (CSS) ou ao clicar; telemóvel: acordeão dentro do menu.
+  const submenus = [...nav.querySelectorAll('.has-sub')]
+  const setSub = (item, open) => {
+    item.classList.toggle('is-open', open)
+    item.querySelector('.nav-toggle').setAttribute('aria-expanded', String(open))
+  }
+  submenus.forEach((item) => {
+    item.querySelector('.nav-toggle').addEventListener('click', (e) => {
+      e.stopPropagation()
+      const open = !item.classList.contains('is-open')
+      submenus.forEach((outro) => setSub(outro, outro === item && open))
+    })
+    item.querySelectorAll('.nav-sub a').forEach((a) => a.addEventListener('click', () => setSub(item, false)))
+  })
+  document.addEventListener('click', (e) => {
+    submenus.forEach((item) => {
+      if (!item.contains(e.target)) setSub(item, false)
+    })
+  })
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return
+    submenus.forEach((item) => {
+      if (item.classList.contains('is-open')) {
+        setSub(item, false)
+        item.querySelector('.nav-toggle').focus()
+      }
+    })
+  })
+
   // ─── HERO SLIDER ───
   // O avanço automático é conduzido pelo fim da animação da barra de progresso,
   // por isso pausar a animação (hover / separador oculto) pausa também o slider.
   const hero = document.getElementById('hero')
+  if (hero) iniciarHero(hero)
+
+  function iniciarHero(hero) {
   const slides = hero.querySelectorAll('.hero-slide')
   const tabs = hero.querySelectorAll('.hero-tab')
   let current = 0
@@ -75,6 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     { passive: true },
   )
+  }
 
   // ─── MISSÃO / VISÃO / VALORES ───
   const mvvTabs = document.querySelectorAll('.mvv-tab')
@@ -90,12 +124,17 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
   // ─── NAV: secção actual ───
-  const navLinks = [...nav.querySelectorAll('ul a')]
+  // Só as âncoras da própria página (na homepage); o link "Blog" fica marcado pelo servidor.
+  const navLinks = [...nav.querySelectorAll('ul a[href^="#"]')]
   const sectionObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return
         navLinks.forEach((a) => a.classList.toggle('is-current', a.getAttribute('href') === '#' + entry.target.id))
+        // O botão "Quem somos" fica marcado quando a secção visível é uma das suas.
+        submenus.forEach((item) => {
+          item.querySelector('.nav-toggle').classList.toggle('is-current', !!item.querySelector('.nav-sub a.is-current'))
+        })
       })
     },
     { rootMargin: '-45% 0px -50% 0px' },
@@ -124,6 +163,24 @@ document.addEventListener('DOMContentLoaded', () => {
     revealObserver.observe(el)
   })
 
+  // ─── BLOG: copiar link do artigo ───
+  document.querySelectorAll('[data-copiar]').forEach((botao) => {
+    botao.addEventListener('click', () => {
+      const texto = botao.dataset.copiar
+      const feito = () => {
+        botao.classList.add('is-copiado')
+        botao.innerHTML = '<i class="mdi mdi-check"></i>'
+        setTimeout(() => {
+          botao.classList.remove('is-copiado')
+          botao.innerHTML = '<i class="mdi mdi-link-variant"></i>'
+        }, 1800)
+      }
+      if (navigator.clipboard) navigator.clipboard.writeText(texto).then(feito, () => window.prompt('Copie o link:', texto))
+      else window.prompt('Copie o link:', texto)
+    })
+  })
+
   // ─── ANO NO RODAPÉ ───
-  document.getElementById('year').textContent = new Date().getFullYear()
+  const ano = document.getElementById('year')
+  if (ano) ano.textContent = new Date().getFullYear()
 })

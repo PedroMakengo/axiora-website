@@ -1,0 +1,71 @@
+RewriteEngine On
+
+# ---------------------------------------------------------------------
+# HTTPS obrigatório em produção (não se aplica a localhost / 127.0.0.1).
+# Suporta alojamentos atrás de proxy/CDN que enviam X-Forwarded-Proto.
+# No Docker/Coolify (Apache arrancado com -DAXIORA_DOCKER) quem força o
+# HTTPS é o proxy (Traefik) — assim os domínios http provisórios do
+# Coolify (sslip.io) continuam a funcionar.
+# ---------------------------------------------------------------------
+<IfDefine !AXIORA_DOCKER>
+    RewriteCond %{HTTP_HOST} !^(localhost|127\.0\.0\.1)(:\d+)?$ [NC]
+    RewriteCond %{HTTPS} off
+    RewriteCond %{HTTP:X-Forwarded-Proto} !https [NC]
+    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+</IfDefine>
+
+# ---------------------------------------------------------------------
+# Segurança: nada de código, configuração, SQL ou ficheiros ocultos é
+# servido directamente. Só o index.php (front controller), assets/ e os
+# ficheiros públicos da raiz (favicon, robots.txt) são acessíveis.
+# ---------------------------------------------------------------------
+# Ficheiros/pastas ocultos (.env, .git, .htaccess, .claude...), excepto .well-known
+RewriteRule (^|/)\.(?!well-known/) - [F,L]
+
+# Pastas internas da aplicação
+RewriteRule ^(app|config|core|database|docker|storage|src|node_modules|vendor)(/|$) - [F,L]
+
+# Scripts PHP que não sejam o front controller (router.php, views, etc.)
+RewriteCond %{REQUEST_URI} \.php$ [NC]
+RewriteRule !^index\.php$ - [F,L]
+
+# Não reescrever ficheiros ou pastas que realmente existem (assets, robots.txt, etc.)
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Tudo o resto é tratado pelo front controller — sem RewriteBase,
+# para funcionar em qualquer subpasta/domínio sem ajustes manuais.
+RewriteRule ^ index.php [L]
+
+Options -Indexes -MultiViews
+ServerSignature Off
+
+# Ficheiros sensíveis por extensão (defesa extra, caso o mod_rewrite falhe)
+<FilesMatch "(^\.|\.(env|log|sql|md|bat|sh|ini|lock|dist|example|bak|old|orig|swp|yml)$|^(package(-lock)?\.json|composer\.(json|lock)|tailwind\.config\.js|router\.php|Dockerfile)$)">
+    Require all denied
+</FilesMatch>
+
+# Cabeçalhos de segurança também nos ficheiros estáticos
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always unset X-Powered-By
+    Header unset X-Powered-By
+</IfModule>
+
+# Compressão e cache de assets estáticos
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml application/xml
+</IfModule>
+
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType font/woff2 "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/webp "access plus 1 month"
+</IfModule>

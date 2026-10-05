@@ -1,0 +1,13 @@
+{
+  "name": "axiora-website-assets",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build:css": "tailwindcss -i ./src/input.css -o ./assets/css/admin.css --minify",
+    "watch:css": "tailwindcss -i ./src/input.css -o ./assets/css/admin.css --minify --watch",
+    "serve": "php -S localhost:8000 router.php"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.19"
+  }
+}

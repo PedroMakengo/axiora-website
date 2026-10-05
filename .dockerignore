@@ -1,0 +1,14 @@
+.git
+.gitignore
+.env
+.env.*
+!.env.example
+node_modules
+assets/uploads/*
+!assets/uploads/.htaccess
+storage/ratelimit
+storage/sessoes
+docker-compose*.yml
+*.log
+.claude
+.vscode

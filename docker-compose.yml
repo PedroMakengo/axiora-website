@@ -1,0 +1,72 @@
+# =====================================================================
+# Axiora — docker-compose para o Coolify (Build Pack: Docker Compose).
+#
+# O Coolify gera automaticamente as variáveis mágicas:
+#   SERVICE_FQDN_APP_80          → domínio do serviço "app" (proxy para a porta 80)
+#   SERVICE_USER_MYSQL           → utilizador da BD
+#   SERVICE_PASSWORD_MYSQL       → senha da BD
+#   SERVICE_PASSWORD_MYSQLROOT   → senha root da BD
+# As restantes (ADMIN_*, MAIL_*) definem-se no separador "Environment
+# Variables" do recurso no Coolify. Ver README.md › Deploy no Coolify.
+# =====================================================================
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      - SERVICE_FQDN_APP_80
+      - APP_AMBIENTE=${APP_AMBIENTE:-producao}
+      - APP_URL=${SERVICE_FQDN_APP}
+      - DB_HOST=db
+      - DB_PORTA=3306
+      - DB_NOME=${DB_NOME:-axiora}
+      - DB_USER=${SERVICE_USER_MYSQL}
+      - DB_SENHA=${SERVICE_PASSWORD_MYSQL}
+      - ADMIN_NOME=${ADMIN_NOME:-Administrador}
+      - ADMIN_EMAIL=${ADMIN_EMAIL:-admin@axiora.site}
+      - ADMIN_SENHA=${ADMIN_SENHA:-}
+      - MAIL_HOST=${MAIL_HOST:-}
+      - MAIL_PORT=${MAIL_PORT:-465}
+      - MAIL_ENCRIPTACAO=${MAIL_ENCRIPTACAO:-ssl}
+      - MAIL_UTILIZADOR=${MAIL_UTILIZADOR:-}
+      - MAIL_SENHA=${MAIL_SENHA:-}
+      - MAIL_DE=${MAIL_DE:-}
+    volumes:
+      - axiora-uploads:/var/www/html/assets/uploads
+      - axiora-storage:/var/www/html/storage
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "php", "-r", "exit(@file_get_contents('http://127.0.0.1/saude') === false ? 1 : 0);"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 40s
+
+  db:
+    image: mariadb:11.4
+    restart: unless-stopped
+    environment:
+      - MARIADB_DATABASE=${DB_NOME:-axiora}
+      - MARIADB_USER=${SERVICE_USER_MYSQL}
+      - MARIADB_PASSWORD=${SERVICE_PASSWORD_MYSQL}
+      - MARIADB_ROOT_PASSWORD=${SERVICE_PASSWORD_MYSQLROOT}
+      - TZ=Africa/Luanda
+    command: ["--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]
+    volumes:
+      - axiora-db:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+volumes:
+  axiora-uploads:
+  axiora-storage:
+  axiora-db:

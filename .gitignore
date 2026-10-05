@@ -1,0 +1,8 @@
+.env
+.env.docker
+node_modules/
+storage/ratelimit/
+storage/sessoes/
+assets/uploads/*
+!assets/uploads/.htaccess
+*.log

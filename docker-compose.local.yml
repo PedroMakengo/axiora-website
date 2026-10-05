@@ -1,0 +1,14 @@
+# =====================================================================
+# Teste local da stack Docker (fora do Coolify). Uso:
+#
+#   cp .env.docker.example .env.docker
+#   docker compose -f docker-compose.yml -f docker-compose.local.yml --env-file .env.docker up --build
+#
+# Site em http://localhost:8080 · painel em http://localhost:8080/admin
+# O Coolify NÃO usa este ficheiro.
+# =====================================================================
+
+services:
+  app:
+    ports:
+      - "8080:80"
