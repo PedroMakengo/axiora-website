@@ -208,6 +208,8 @@
         if (!campo) return;
         if (campo.type === 'checkbox') campo.checked = !!Number(valores[nome]);
         else campo.value = valores[nome] === null ? '' : valores[nome];
+        if (campo._definirConteudo) campo._definirConteudo(campo.value);
+        if (campo.hasAttribute && campo.hasAttribute('data-icone')) campo.dispatchEvent(new Event('input'));
       });
 
       var preview = form.querySelector('[data-preview-imagem]');
@@ -241,5 +243,82 @@
     };
     campo.addEventListener('input', atualizar);
     atualizar();
+  });
+
+  /* ===================== Editor de texto (Quill) para os campos do CMS =====================
+     <textarea data-editor="curto|rico|lista"> passa a editor visual. A textarea fica
+     escondida e recebe o HTML a cada alteração — é ela que segue no formulário. */
+  var BARRAS_EDITOR = {
+    curto: [['bold', 'italic', 'underline'], ['link'], ['clean']],
+    rico: [[{ header: [3, false] }], ['bold', 'italic', 'underline'], [{ list: 'ordered' }, { list: 'bullet' }], ['blockquote', 'link'], ['clean']],
+    lista: [['bold', 'italic'], [{ list: 'bullet' }], ['link'], ['clean']]
+  };
+
+  window.iniciarEditor = function (textarea) {
+    if (!window.Quill || textarea._quill) return;
+    var tipo = BARRAS_EDITOR[textarea.getAttribute('data-editor')] ? textarea.getAttribute('data-editor') : 'curto';
+
+    var caixa = document.createElement('div');
+    caixa.className = 'editor-campo editor-campo--' + tipo;
+    var area = document.createElement('div');
+    caixa.appendChild(area);
+    textarea.parentNode.insertBefore(caixa, textarea.nextSibling);
+    textarea.classList.add('hidden');
+
+    var quill = new window.Quill(area, {
+      theme: 'snow',
+      placeholder: tipo === 'lista' ? 'Escreva um item e carregue Enter para o seguinte...' : 'Escreva aqui...',
+      modules: { toolbar: BARRAS_EDITOR[tipo] }
+    });
+
+    var vazio = function () { return quill.getText().trim() === ''; };
+    var sincronizar = function () {
+      textarea.value = vazio() ? '' : quill.root.innerHTML;
+      textarea.dispatchEvent(new Event('input', { bubbles: true }));
+    };
+
+    textarea._quill = quill;
+    textarea._definirConteudo = function (html) {
+      html = html || '';
+      // Listas novas começam já com marcador, para cada linha ser um item.
+      if (tipo === 'lista' && html === '') html = '<ul><li></li></ul>';
+      // Texto simples antigo (sem tags) é tratado como um parágrafo.
+      if (html && html.charAt(0) !== '<') html = '<p>' + html.replace(/&/g, '&amp;').replace(/</g, '&lt;') + '</p>';
+      quill.setContents([], 'silent');
+      if (html) quill.clipboard.dangerouslyPasteHTML(html, 'silent');
+      textarea.value = vazio() ? '' : quill.root.innerHTML;
+    };
+
+    textarea._definirConteudo(textarea.value);
+    quill.on('text-change', sincronizar);
+
+    var form = textarea.form;
+    if (form) form.addEventListener('reset', function () { setTimeout(function () { textarea._definirConteudo(''); }, 0); });
+  };
+
+  document.querySelectorAll('textarea[data-editor]').forEach(window.iniciarEditor);
+
+  /* ===================== Campo de ícone: pré-visualização ===================== */
+  document.querySelectorAll('input[data-icone]').forEach(function (input) {
+    var preview = input.parentNode.querySelector('.campo-icone__preview i');
+    var atualizar = function () {
+      var nome = (input.value || '').trim().toLowerCase();
+      if (nome && nome.indexOf('mdi-') !== 0) nome = 'mdi-' + nome;
+      if (preview) preview.className = 'mdi ' + nome.replace(/[^a-z0-9-]/g, '');
+    };
+    input.addEventListener('input', atualizar);
+    input.addEventListener('change', atualizar);
+  });
+
+  /* ===================== Secções: imagens actualizadas após gravar ===================== */
+  document.addEventListener('ajax-form:sucesso', function (e) {
+    var json = e.detail || {};
+    if (!json.imagens) return;
+    Object.keys(json.imagens).forEach(function (campo) {
+      var img = e.target.querySelector('[data-imagem-campo="' + campo + '"]');
+      if (img) { img.src = json.imagens[campo]; img.classList.toggle('hidden', !json.imagens[campo]); }
+    });
+    e.target.querySelectorAll('input[type="file"]').forEach(function (f) { f.value = ''; });
+    e.target.querySelectorAll('input[name^="repor_"]').forEach(function (c) { c.checked = false; });
   });
 })();

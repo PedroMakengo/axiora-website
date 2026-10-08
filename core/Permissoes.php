@@ -34,7 +34,7 @@ class Permissoes
     public const PAGINAS = [
         'dashboard'    => '/admin',
         'blog'         => '/admin/blog',
-        'conteudo'     => '/admin/conteudo/slider',
+        'conteudo'     => '/admin/conteudo/secoes',
         'utilizadores' => '/admin/utilizadores',
         'definicoes'   => '/admin/definicoes',
     ];

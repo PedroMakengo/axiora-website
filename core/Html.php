@@ -25,14 +25,30 @@ class Html
         'span' => [],
     ];
 
+    /** Níveis mais restritos para os textos do site (editor simples do CMS). */
+    private const NIVEIS = [
+        'rico'  => ['p', 'br', 'strong', 'b', 'em', 'i', 'u', 's', 'a', 'ul', 'ol', 'li', 'h3', 'blockquote'],
+        'curto' => ['p', 'br', 'strong', 'b', 'em', 'i', 'u', 's', 'a'],
+        'lista' => ['ul', 'ol', 'li', 'p', 'br', 'strong', 'b', 'em', 'i', 'u', 's', 'a'],
+    ];
+
     /** Tags removidas juntamente com todo o conteúdo. */
     private const REMOVER_COM_CONTEUDO = ['script', 'style', 'object', 'embed', 'form', 'input', 'button', 'select', 'textarea', 'svg', 'math', 'template'];
 
     /** Vídeos incorporados: só YouTube e Vimeo (o botão "vídeo" do editor). */
     private const IFRAME_PERMITIDO = '#^https://(www\.)?(youtube\.com|youtube-nocookie\.com)/embed/[A-Za-z0-9_\-]+|^https://player\.vimeo\.com/video/[0-9]+#';
 
-    public static function limpar(string $html): string
+    /**
+     * Limpa HTML pela lista branca. $nivel: 'completo' (artigos do blog),
+     * 'rico', 'curto' ou 'lista' (textos do site). Tags fora do nível são
+     * removidas mas o texto delas mantém-se.
+     */
+    public static function limpar(string $html, string $nivel = 'completo'): string
     {
+        $permitidos = isset(self::NIVEIS[$nivel])
+            ? array_intersect_key(self::PERMITIDOS, array_flip(self::NIVEIS[$nivel]))
+            : self::PERMITIDOS;
+
         $html = trim($html);
         if ($html === '' || $html === '<p><br></p>') {
             return '';
@@ -49,7 +65,7 @@ class Html
             return '';
         }
 
-        self::limparNo($raiz);
+        self::limparNo($raiz, $permitidos);
 
         $saida = '';
         foreach (iterator_to_array($raiz->childNodes) as $filho) {
@@ -58,7 +74,7 @@ class Html
         return trim($saida);
     }
 
-    private static function limparNo(\DOMNode $no): void
+    private static function limparNo(\DOMNode $no, array $permitidos): void
     {
         foreach (iterator_to_array($no->childNodes) as $filho) {
             if ($filho instanceof \DOMComment || $filho instanceof \DOMProcessingInstruction) {
@@ -77,9 +93,9 @@ class Html
                 continue;
             }
 
-            if (!array_key_exists($tag, self::PERMITIDOS)) {
-                // Tag desconhecida: mantém o texto, descarta a tag.
-                self::limparNo($filho);
+            if (!array_key_exists($tag, $permitidos)) {
+                // Tag não permitida: mantém o texto, descarta a tag.
+                self::limparNo($filho, $permitidos);
                 while ($filho->firstChild) {
                     $no->insertBefore($filho->firstChild, $filho);
                 }
@@ -103,7 +119,7 @@ class Html
             }
 
             $classeAlinhamento = self::classeAlinhamento($filho->getAttribute('class'));
-            self::limparAtributos($filho, self::PERMITIDOS[$tag]);
+            self::limparAtributos($filho, $permitidos[$tag]);
             if ($classeAlinhamento !== '' && in_array($tag, ['p', 'h2', 'h3', 'h4', 'li', 'blockquote'], true)) {
                 $filho->setAttribute('class', $classeAlinhamento);
             }
@@ -113,7 +129,7 @@ class Html
                 continue;
             }
 
-            self::limparNo($filho);
+            self::limparNo($filho, $permitidos);
         }
     }
 
@@ -196,6 +212,49 @@ class Html
         }
         $elemento->parentNode->replaceChild($novo, $elemento);
         return $novo;
+    }
+
+    /**
+     * Texto de um campo "curto" para mostrar dentro de um parágrafo/título já
+     * existente no layout: limpa e troca os parágrafos por quebras de linha.
+     * Também aceita texto simples antigo (é escapado correctamente).
+     */
+    public static function inline(?string $html): string
+    {
+        $html = self::limpar((string) $html, 'curto');
+        $html = preg_replace('#</p>\s*<p[^>]*>#i', '<br>', $html);
+        $html = preg_replace('#</?p[^>]*>#i', '', $html);
+        return trim(preg_replace('#(<br>\s*)+$#i', '', $html));
+    }
+
+    /** Campo "rico" (vários parágrafos/listas) já limpo, pronto a imprimir. */
+    public static function bloco(?string $html): string
+    {
+        $html = trim((string) $html);
+        if ($html !== '' && !preg_match('/^</', $html)) {
+            $html = '<p>' . htmlspecialchars($html) . '</p>'; // texto simples antigo
+        }
+        return self::limpar($html, 'rico');
+    }
+
+    /**
+     * Itens de um campo "lista" (cada marcador do editor), já limpos e em HTML
+     * inline — para o layout desenhar cada item com o seu ícone. Sem lista,
+     * usa cada parágrafo/linha como item.
+     */
+    public static function itensLista(?string $html): array
+    {
+        $html = self::limpar((string) $html, 'lista');
+        if ($html === '') {
+            return [];
+        }
+        if (preg_match_all('#<li[^>]*>(.*?)</li>#is', $html, $m)) {
+            $itens = $m[1];
+        } else {
+            $itens = preg_split('#</p>\s*<p[^>]*>|<br\s*/?>|\R#i', $html);
+        }
+        $itens = array_map(fn ($i) => trim(preg_replace('#</?(p|ul|ol)[^>]*>#i', '', $i)), $itens);
+        return array_values(array_filter($itens, fn ($i) => trim(strip_tags($i)) !== ''));
     }
 
     /** Texto simples (sem tags) — para resumos automáticos e tempo de leitura. */

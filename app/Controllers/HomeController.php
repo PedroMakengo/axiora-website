@@ -6,6 +6,7 @@ use Core\Controller;
 use App\Models\Artigo;
 use App\Models\ConfiguracaoSite;
 use App\Models\HeroSlide;
+use App\Models\SecaoSite;
 use App\Models\Servico;
 use App\Models\Testemunho;
 
@@ -20,6 +21,7 @@ class HomeController extends Controller
             'servicos'    => (new Servico())->todosAtivos(),
             'testemunhos' => (new Testemunho())->todosAtivos(),
             'artigos'     => (new Artigo())->recentes(3),
+            'secoes'      => SecaoSite::publicas(),
             'paginaAtual' => 'inicio',
         ];
 

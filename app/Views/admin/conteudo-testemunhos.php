@@ -18,7 +18,7 @@ $camposTestemunho = static function (): void { ?>
         </div>
         <div>
             <label class="rotulo">Testemunho</label>
-            <textarea name="texto" rows="4" required maxlength="600" class="campo"></textarea>
+            <textarea name="texto" data-editor="curto" required class="campo"></textarea>
             <p class="campo-erro hidden" data-campo="texto"></p>
         </div>
         <div class="grid grid-cols-2 gap-3">
@@ -64,7 +64,7 @@ $camposTestemunho = static function (): void { ?>
                         <p class="font-semibold text-ink"><?= htmlspecialchars($t['nome']) ?></p>
                         <p class="text-xs text-muted"><?= htmlspecialchars((string) $t['descricao']) ?></p>
                     </td>
-                    <td class="text-muted"><span class="text-gold"><?= str_repeat('★', (int) $t['estrelas']) ?></span> <span class="block truncate max-w-md"><?= htmlspecialchars($t['texto']) ?></span></td>
+                    <td class="text-muted"><span class="text-gold"><?= str_repeat('★', (int) $t['estrelas']) ?></span> <span class="block truncate max-w-md"><?= htmlspecialchars(\Core\Html::texto($t['texto'])) ?></span></td>
                     <td class="text-muted"><?= (int) $t['ordem'] ?></td>
                     <td><input type="checkbox" class="admin-toggle-estado" data-endpoint="<?= BASE ?>/admin/conteudo/testemunhos/<?= (int) $t['id'] ?>/estado" <?= $t['ativo'] ? 'checked' : '' ?> <?= $podeEditar ? '' : 'disabled' ?>></td>
                     <td class="text-right whitespace-nowrap">

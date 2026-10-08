@@ -36,7 +36,7 @@ $camposSlide = static function (bool $imagemObrigatoria): void { ?>
         </div>
         <div>
             <label class="rotulo">Texto</label>
-            <textarea name="texto" rows="3" maxlength="400" class="campo"></textarea>
+            <textarea name="texto" data-editor="curto" class="campo"></textarea>
         </div>
         <div class="grid grid-cols-2 gap-3">
             <div>
@@ -83,7 +83,7 @@ $camposSlide = static function (bool $imagemObrigatoria): void { ?>
                             <img src="<?= BASE . '/' . htmlspecialchars($slide['imagem']) ?>" alt="" class="admin-thumb">
                             <div class="min-w-0">
                                 <p class="font-semibold text-ink truncate max-w-md"><?= htmlspecialchars($slide['titulo']) ?> <span class="text-teal-dark"><?= htmlspecialchars((string) $slide['titulo_destaque']) ?></span></p>
-                                <p class="text-xs text-muted truncate max-w-md"><?= htmlspecialchars((string) $slide['texto']) ?></p>
+                                <p class="text-xs text-muted truncate max-w-md"><?= htmlspecialchars(\Core\Html::texto((string) $slide['texto'])) ?></p>
                             </div>
                         </div>
                     </td>

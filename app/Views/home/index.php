@@ -1,6 +1,15 @@
 <?php
-use App\Models\Artigo;
 use App\Models\ConfiguracaoSite;
+use Core\Html;
+
+// Conteúdo de cada secção vem do CMS (Painel › Conteúdo do site › Secções do site).
+$campo = static fn (string $secao, string $nome): string => (string) ($secoes[$secao]['campos'][$nome] ?? '');
+$texto = static fn (string $secao, string $nome): string => htmlspecialchars($campo($secao, $nome));   // campo "texto"
+$curto = static fn (string $secao, string $nome): string => Html::inline($campo($secao, $nome));      // editor curto
+$itens = static fn (string $secao, string $grupo): array => $secoes[$secao]['grupos'][$grupo] ?? [];
+$visivel = static fn (string $secao): bool => !empty($secoes[$secao]['visivel']);
+$imagem = static fn (string $secao, string $nome): string => BASE . '/' . htmlspecialchars($campo($secao, $nome));
+$icone = static fn (?string $nome): string => htmlspecialchars(preg_replace('/[^a-z0-9-]/', '', strtolower((string) $nome)));
 ?>
     <?php if (!empty($heroSlides)): ?>
     <!-- ─── HERO SLIDER ─── -->
@@ -13,7 +22,7 @@ use App\Models\ConfiguracaoSite;
           <div class="container hero-content">
             <<?= $tagTitulo ?> class="hero-title"><?= htmlspecialchars($slide['titulo']) ?><?php if (!empty($slide['titulo_destaque'])): ?> <span><?= htmlspecialchars($slide['titulo_destaque']) ?></span><?php endif; ?></<?= $tagTitulo ?>>
             <?php if (!empty($slide['texto'])): ?>
-            <p class="hero-text"><?= htmlspecialchars($slide['texto']) ?></p>
+            <p class="hero-text"><?= Html::inline($slide['texto']) ?></p>
             <?php endif; ?>
             <div class="hero-actions">
               <a href="<?= htmlspecialchars(ConfiguracaoSite::linkWhatsapp($slide['mensagem_whatsapp'])) ?>" class="btn btn-primary btn-lg" target="_blank" rel="noopener"><i class="mdi mdi-whatsapp"></i> <?= htmlspecialchars($slide['botao_texto']) ?></a>
@@ -43,40 +52,32 @@ use App\Models\ConfiguracaoSite;
     </section>
     <?php endif; ?>
 
+    <?php if ($visivel('confianca') && $itens('confianca', 'itens')): ?>
     <!-- ─── TRUST STRIP ─── -->
     <section class="trust" aria-label="Porque confiar na Axiora">
       <div class="container">
         <ul class="trust-grid">
+          <?php foreach ($itens('confianca', 'itens') as $item): ?>
           <li>
-            <span class="trust-icon"><i class="mdi mdi-storefront-outline"></i></span>
-            <div><strong>Atendimento presencial</strong><span>Escritório em <?= htmlspecialchars($cfg['endereco_curto']) ?></span></div>
+            <span class="trust-icon"><i class="mdi <?= $icone($item['icone'] ?? '') ?>"></i></span>
+            <div><strong><?= htmlspecialchars($item['titulo'] ?? '') ?></strong><span><?= Html::inline($item['texto'] ?? '') ?></span></div>
           </li>
-          <li>
-            <span class="trust-icon"><i class="mdi mdi-whatsapp"></i></span>
-            <div><strong>Resposta rápida</strong><span>Fale connosco directamente no WhatsApp</span></div>
-          </li>
-          <li>
-            <span class="trust-icon"><i class="mdi mdi-file-document-check-outline"></i></span>
-            <div><strong>Preço claro à partida</strong><span>Sabe quanto paga antes de começarmos</span></div>
-          </li>
-          <li>
-            <span class="trust-icon"><i class="mdi mdi-shield-check-outline"></i></span>
-            <div><strong>Empresa registada</strong><span><?= htmlspecialchars(NOME_EMPRESA) ?></span></div>
-          </li>
+          <?php endforeach; ?>
         </ul>
       </div>
     </section>
+    <?php endif; ?>
 
+    <?php if ($visivel('servicos')): ?>
     <!-- ─── SERVIÇOS ─── -->
     <section class="section" id="servicos">
       <div class="container">
         <div class="section-head section-head-split">
           <div>
-            <span class="eyebrow reveal">Os nossos serviços</span>
-            <h2 class="section-title reveal">Serviços essenciais, tratados por quem conhece Luanda.</h2>
+            <span class="eyebrow reveal"><?= $texto('servicos', 'eyebrow') ?></span>
+            <h2 class="section-title reveal"><?= $texto('servicos', 'titulo') ?></h2>
           </div>
-          <p class="section-lead reveal">Escolha o serviço, envie-nos uma mensagem e tratamos do resto. Sem idas e
-            voltas desnecessárias — acompanhamos cada passo consigo.</p>
+          <p class="section-lead reveal"><?= $curto('servicos', 'texto') ?></p>
         </div>
 
         <div class="services-grid">
@@ -89,7 +90,7 @@ use App\Models\ConfiguracaoSite;
             <?php endif; ?>
             <div class="service-body">
               <h3><?= htmlspecialchars($servico['titulo']) ?></h3>
-              <p><?= htmlspecialchars($servico['descricao']) ?></p>
+              <p><?= Html::inline($servico['descricao']) ?></p>
               <a href="<?= htmlspecialchars(ConfiguracaoSite::linkWhatsapp($servico['mensagem_whatsapp'])) ?>" class="service-link" target="_blank" rel="noopener">Pedir pelo WhatsApp <i class="mdi mdi-arrow-right"></i></a>
             </div>
           </article>
@@ -97,167 +98,137 @@ use App\Models\ConfiguracaoSite;
         </div>
       </div>
     </section>
+    <?php endif; ?>
 
+    <?php if ($visivel('como-funciona')): ?>
     <!-- ─── COMO FUNCIONA ─── -->
     <section class="section section-dark" id="como-funciona">
       <div class="container">
         <div class="section-head section-head-center">
-          <span class="eyebrow eyebrow-light reveal">Como funciona</span>
-          <h2 class="section-title reveal">Do primeiro contacto ao assunto resolvido, em 4 passos.</h2>
+          <span class="eyebrow eyebrow-light reveal"><?= $texto('como-funciona', 'eyebrow') ?></span>
+          <h2 class="section-title reveal"><?= $texto('como-funciona', 'titulo') ?></h2>
         </div>
 
         <ol class="steps">
+          <?php foreach ($itens('como-funciona', 'passos') as $i => $passo): ?>
           <li class="step reveal">
-            <span class="step-num">01</span>
-            <span class="step-icon"><i class="mdi mdi-message-text-outline"></i></span>
-            <h3>Fale connosco</h3>
-            <p>Envie uma mensagem no WhatsApp, ligue ou visite o nosso escritório em São Paulo.</p>
+            <span class="step-num"><?= str_pad((string) ($i + 1), 2, '0', STR_PAD_LEFT) ?></span>
+            <span class="step-icon"><i class="mdi <?= $icone($passo['icone'] ?? '') ?>"></i></span>
+            <h3><?= htmlspecialchars($passo['titulo'] ?? '') ?></h3>
+            <p><?= Html::inline($passo['texto'] ?? '') ?></p>
           </li>
-          <li class="step reveal">
-            <span class="step-num">02</span>
-            <span class="step-icon"><i class="mdi mdi-clipboard-text-search-outline"></i></span>
-            <h3>Analisamos o seu caso</h3>
-            <p>Explicamos o que é preciso, os prazos e o custo — tudo claro antes de avançar.</p>
-          </li>
-          <li class="step reveal">
-            <span class="step-num">03</span>
-            <span class="step-icon"><i class="mdi mdi-cog-outline"></i></span>
-            <h3>Tratamos de tudo</h3>
-            <p>A nossa equipa executa o serviço e mantém-no informado em cada etapa.</p>
-          </li>
-          <li class="step reveal">
-            <span class="step-num">04</span>
-            <span class="step-icon"><i class="mdi mdi-check-decagram-outline"></i></span>
-            <h3>Assunto resolvido</h3>
-            <p>Entregamos o resultado e continuamos disponíveis para o que precisar a seguir.</p>
-          </li>
+          <?php endforeach; ?>
         </ol>
 
         <div class="steps-cta reveal">
-          <a href="<?= htmlspecialchars($waGeral) ?>" class="btn btn-primary btn-lg" target="_blank" rel="noopener"><i class="mdi mdi-whatsapp"></i> Começar agora</a>
-          <span><?= htmlspecialchars($cfg['horario']) ?></span>
+          <a href="<?= htmlspecialchars(ConfiguracaoSite::linkWhatsapp($campo('como-funciona', 'mensagem_whatsapp') ?: null)) ?>" class="btn btn-primary btn-lg" target="_blank" rel="noopener"><i class="mdi mdi-whatsapp"></i> <?= $texto('como-funciona', 'botao_texto') ?></a>
+          <span><?= htmlspecialchars($campo('como-funciona', 'nota') ?: $cfg['horario']) ?></span>
         </div>
       </div>
     </section>
+    <?php endif; ?>
 
+    <?php if ($visivel('sobre')): ?>
     <!-- ─── SOBRE NÓS ─── -->
     <section class="section" id="sobre">
       <div class="container about">
         <div class="about-media reveal">
-          <img src="<?= BASE ?>/assets/images/banner.webp" alt="Equipa Axiora em Luanda" loading="lazy" class="about-img" />
+          <img src="<?= $imagem('sobre', 'imagem') ?>" alt="<?= $texto('sobre', 'imagem_alt') ?>" loading="lazy" class="about-img" />
           <div class="about-card">
             <div class="about-team">
-              <img src="<?= BASE ?>/assets/images/membros/1.jpeg" alt="Membro da equipa Axiora" loading="lazy" />
-              <img src="<?= BASE ?>/assets/images/membros/2.jpeg" alt="Membro da equipa Axiora" loading="lazy" />
+              <?php foreach (['equipa_1', 'equipa_2'] as $foto): ?>
+                <?php if ($campo('sobre', $foto) !== ''): ?>
+                <img src="<?= $imagem('sobre', $foto) ?>" alt="Membro da equipa Axiora" loading="lazy" />
+                <?php endif; ?>
+              <?php endforeach; ?>
             </div>
             <div>
-              <strong>Equipa local</strong>
-              <span>Atendimento feito por pessoas, não por robôs.</span>
+              <strong><?= $texto('sobre', 'cartao_titulo') ?></strong>
+              <span><?= $texto('sobre', 'cartao_texto') ?></span>
             </div>
           </div>
         </div>
 
         <div class="about-text">
-          <span class="eyebrow reveal">Sobre a Axiora</span>
-          <h2 class="section-title reveal">Uma empresa angolana feita para facilitar a sua vida.</h2>
-          <p class="reveal">A <strong><?= htmlspecialchars(NOME_EMPRESA) ?></strong> nasceu em Luanda com
-            uma missão clara: oferecer soluções práticas e confiáveis que facilitam a vida e os negócios dos nossos
-            clientes. Num único lugar, encontra assessoria de viagens, gestão de viaturas, serviços técnicos e apoio
-            logístico.</p>
-          <p class="reveal">O nosso diferencial está no atendimento próximo, na orientação clara e no foco em soluções
-            rápidas. Para nós, <strong>qualidade e transparência</strong> são o mínimo que cada cliente merece.</p>
+          <span class="eyebrow reveal"><?= $texto('sobre', 'eyebrow') ?></span>
+          <h2 class="section-title reveal"><?= $texto('sobre', 'titulo') ?></h2>
+          <div class="texto-rico reveal"><?= Html::bloco($campo('sobre', 'texto')) ?></div>
 
+          <?php $valores = Html::itensLista($campo('sobre', 'valores')); ?>
           <div class="mvv reveal">
             <div class="mvv-tabs" role="tablist">
               <button class="mvv-tab is-active" role="tab" aria-selected="true" data-tab="missao">Missão</button>
               <button class="mvv-tab" role="tab" aria-selected="false" data-tab="visao">Visão</button>
+              <?php if ($valores): ?>
               <button class="mvv-tab" role="tab" aria-selected="false" data-tab="valores">Valores</button>
+              <?php endif; ?>
             </div>
-            <div class="mvv-panel is-active" role="tabpanel" data-panel="missao">
-              <p>Prestar serviços com qualidade, transparência e eficiência, oferecendo soluções práticas em assessoria
-                de viagens, gestão de viaturas, serviços técnicos e apoio logístico.</p>
+            <div class="mvv-panel is-active texto-rico" role="tabpanel" data-panel="missao">
+              <?= Html::bloco($campo('sobre', 'missao')) ?>
             </div>
-            <div class="mvv-panel" role="tabpanel" data-panel="visao" hidden>
-              <p>Ser uma empresa de referência em Angola na prestação de serviços e comercialização, reconhecida pela
-                confiança, qualidade, profissionalismo e pelos resultados que gera para os clientes.</p>
+            <div class="mvv-panel texto-rico" role="tabpanel" data-panel="visao" hidden>
+              <?= Html::bloco($campo('sobre', 'visao')) ?>
             </div>
+            <?php if ($valores): ?>
             <div class="mvv-panel" role="tabpanel" data-panel="valores" hidden>
               <ul class="values">
-                <li>Integridade</li>
-                <li>Responsabilidade</li>
-                <li>Profissionalismo</li>
-                <li>Transparência</li>
-                <li>Compromisso com o cliente</li>
-                <li>Qualidade nos serviços</li>
+                <?php foreach ($valores as $valor): ?>
+                <li><?= $valor ?></li>
+                <?php endforeach; ?>
               </ul>
             </div>
+            <?php endif; ?>
           </div>
         </div>
       </div>
     </section>
+    <?php endif; ?>
 
+    <?php if ($visivel('porque')): ?>
     <!-- ─── PORQUÊ NÓS ─── -->
     <section class="section section-soft">
       <div class="container why">
         <div class="why-text">
-          <span class="eyebrow reveal">Porquê escolher-nos</span>
-          <h2 class="section-title reveal">O que faz os nossos clientes voltarem.</h2>
+          <span class="eyebrow reveal"><?= $texto('porque', 'eyebrow') ?></span>
+          <h2 class="section-title reveal"><?= $texto('porque', 'titulo') ?></h2>
 
           <ul class="why-list">
+            <?php foreach ($itens('porque', 'motivos') as $motivo): ?>
             <li class="reveal">
-              <i class="mdi mdi-view-grid-outline"></i>
+              <i class="mdi <?= $icone($motivo['icone'] ?? '') ?>"></i>
               <div>
-                <strong>Vários serviços, um só contacto</strong>
-                <p>Da assessoria de viagens à manutenção técnica — resolve tudo sem andar de um lado para o outro.</p>
+                <strong><?= htmlspecialchars($motivo['titulo'] ?? '') ?></strong>
+                <p><?= Html::inline($motivo['texto'] ?? '') ?></p>
               </div>
             </li>
-            <li class="reveal">
-              <i class="mdi mdi-account-heart-outline"></i>
-              <div>
-                <strong>Atendimento próximo e personalizado</strong>
-                <p>Orientamos com clareza, passo a passo, até o processo estar concluído.</p>
-              </div>
-            </li>
-            <li class="reveal">
-              <i class="mdi mdi-timer-sand"></i>
-              <div>
-                <strong>Rapidez sem burocracia</strong>
-                <p>Valorizamos o seu tempo. Soluções ágeis e sem etapas desnecessárias.</p>
-              </div>
-            </li>
-            <li class="reveal">
-              <i class="mdi mdi-eye-outline"></i>
-              <div>
-                <strong>Transparência total</strong>
-                <p>Informação clara sobre preços, prazos e processos. Sem surpresas nem letras pequenas.</p>
-              </div>
-            </li>
+            <?php endforeach; ?>
           </ul>
         </div>
 
         <div class="why-media reveal">
-          <img src="<?= BASE ?>/assets/images/equipa-reuniao.webp" alt="Reunião de trabalho da equipa" loading="lazy" />
+          <img src="<?= $imagem('porque', 'imagem') ?>" alt="<?= $texto('porque', 'imagem_alt') ?>" loading="lazy" />
+          <?php if ($itens('porque', 'publico')): ?>
           <div class="why-audience">
-            <span class="why-audience-title">Quem servimos</span>
+            <span class="why-audience-title"><?= $texto('porque', 'publico_titulo') ?></span>
             <ul>
-              <li><i class="mdi mdi-account-group-outline"></i> Particulares &amp; famílias</li>
-              <li><i class="mdi mdi-briefcase-outline"></i> Profissionais independentes</li>
-              <li><i class="mdi mdi-office-building-outline"></i> Pequenas &amp; médias empresas</li>
-              <li><i class="mdi mdi-car-outline"></i> Proprietários de viaturas</li>
-              <li><i class="mdi mdi-earth"></i> Operações internacionais</li>
+              <?php foreach ($itens('porque', 'publico') as $publico): ?>
+              <li><i class="mdi <?= $icone($publico['icone'] ?? '') ?>"></i> <?= htmlspecialchars($publico['titulo'] ?? '') ?></li>
+              <?php endforeach; ?>
             </ul>
           </div>
+          <?php endif; ?>
         </div>
       </div>
     </section>
+    <?php endif; ?>
 
-    <?php if (!empty($testemunhos)): ?>
+    <?php if ($visivel('testemunhos') && !empty($testemunhos)): ?>
     <!-- ─── TESTEMUNHOS ─── -->
     <section class="section" id="testemunhos">
       <div class="container">
         <div class="section-head section-head-center">
-          <span class="eyebrow reveal">Testemunhos</span>
-          <h2 class="section-title reveal">O que dizem os nossos clientes.</h2>
+          <span class="eyebrow reveal"><?= $texto('testemunhos', 'eyebrow') ?></span>
+          <h2 class="section-title reveal"><?= $texto('testemunhos', 'titulo') ?></h2>
         </div>
 
         <div class="testimonials">
@@ -270,7 +241,7 @@ use App\Models\ConfiguracaoSite;
           ?>
           <figure class="testimonial reveal">
             <div class="stars" aria-label="<?= $estrelas ?> de 5 estrelas"><?= str_repeat('<i class="mdi mdi-star"></i>', $estrelas) ?></div>
-            <blockquote>“<?= htmlspecialchars($testemunho['texto']) ?>”</blockquote>
+            <blockquote>“<?= Html::inline($testemunho['texto']) ?>”</blockquote>
             <figcaption>
               <span class="avatar<?= $coresAvatar[$i % 3] ?>"><?= htmlspecialchars($iniciais) ?></span>
               <span><strong><?= htmlspecialchars($testemunho['nome']) ?></strong><?php if (!empty($testemunho['descricao'])): ?><small><?= htmlspecialchars($testemunho['descricao']) ?></small><?php endif; ?></span>
@@ -282,18 +253,18 @@ use App\Models\ConfiguracaoSite;
     </section>
     <?php endif; ?>
 
-    <?php if (!empty($artigos)): ?>
+    <?php if ($visivel('noticias') && !empty($artigos)): ?>
     <!-- ─── BLOG / NOTÍCIAS ─── -->
     <section class="section section-soft" id="noticias">
       <div class="container">
         <div class="section-head section-head-split">
           <div>
-            <span class="eyebrow reveal">Blog &amp; Notícias</span>
-            <h2 class="section-title reveal">Novidades, comunicados e dicas práticas.</h2>
+            <span class="eyebrow reveal"><?= $texto('noticias', 'eyebrow') ?></span>
+            <h2 class="section-title reveal"><?= $texto('noticias', 'titulo') ?></h2>
           </div>
           <div class="section-head-action reveal">
-            <p class="section-lead">Acompanhe o que há de novo na Axiora e aprenda a tratar dos seus assuntos com menos burocracia.</p>
-            <a href="<?= BASE ?>/blog" class="btn btn-outline">Ver todas as publicações <i class="mdi mdi-arrow-right"></i></a>
+            <p class="section-lead"><?= $curto('noticias', 'texto') ?></p>
+            <a href="<?= BASE ?>/blog" class="btn btn-outline"><?= $texto('noticias', 'botao_texto') ?> <i class="mdi mdi-arrow-right"></i></a>
           </div>
         </div>
 
@@ -306,60 +277,61 @@ use App\Models\ConfiguracaoSite;
     </section>
     <?php endif; ?>
 
+    <?php if ($visivel('websites')): ?>
     <!-- ─── WEBSITES ─── -->
     <section class="section section-tight" id="websites">
       <div class="container">
         <div class="promo reveal">
           <div class="promo-text">
-            <span class="eyebrow eyebrow-light">Serviço digital</span>
-            <h2>O seu negócio também merece um website profissional.</h2>
-            <p>Criamos websites modernos para empresas que querem ser encontradas no Google e transmitir confiança
-              online.</p>
-            <span class="promo-includes">Incluído em todos os planos</span>
+            <span class="eyebrow eyebrow-light"><?= $texto('websites', 'eyebrow') ?></span>
+            <h2><?= $texto('websites', 'titulo') ?></h2>
+            <p><?= $curto('websites', 'texto') ?></p>
+            <?php $inclui = Html::itensLista($campo('websites', 'inclui')); ?>
+            <?php if ($inclui): ?>
+            <span class="promo-includes"><?= $texto('websites', 'inclui_titulo') ?></span>
             <ul class="promo-list">
-              <li><i class="mdi mdi-check"></i> Design personalizado</li>
-              <li><i class="mdi mdi-check"></i> Adaptado a telemóveis</li>
-              <li><i class="mdi mdi-check"></i> SEO para Google incluído</li>
-              <li><i class="mdi mdi-check"></i> Integração com WhatsApp</li>
-              <li><i class="mdi mdi-check"></i> Suporte após o lançamento</li>
+              <?php foreach ($inclui as $linha): ?>
+              <li><i class="mdi mdi-check"></i> <?= $linha ?></li>
+              <?php endforeach; ?>
             </ul>
+            <?php endif; ?>
           </div>
 
           <div class="plans">
-            <div class="plan">
-              <span class="plan-name">Website</span>
-              <div class="plan-price">169.000 <small>Kz</small></div>
-              <span class="plan-note">Website completo e funcional</span>
+            <?php foreach ($itens('websites', 'planos') as $plano): ?>
+            <?php $destaque = !empty($plano['destaque']); ?>
+            <div class="plan<?= $destaque ? ' plan-featured' : '' ?>">
+              <?php if ($destaque && !empty($plano['selo'])): ?>
+              <span class="plan-badge"><?= htmlspecialchars($plano['selo']) ?></span>
+              <?php endif; ?>
+              <span class="plan-name"><?= htmlspecialchars($plano['titulo'] ?? '') ?></span>
+              <?php if (!empty($plano['preco'])): ?>
+              <div class="plan-price"><?= htmlspecialchars($plano['preco']) ?> <small><?= htmlspecialchars($plano['moeda'] ?? '') ?></small></div>
+              <?php endif; ?>
+              <?php if (!empty($plano['nota'])): ?>
+              <span class="plan-note"><?= htmlspecialchars($plano['nota']) ?></span>
+              <?php endif; ?>
               <ul class="plan-list">
-                <li><i class="mdi mdi-check"></i> Site institucional completo</li>
-                <li><i class="mdi mdi-check"></i> Entrega em 2 semanas</li>
+                <?php foreach (Html::itensLista($plano['lista'] ?? '') as $linha): ?>
+                <li><i class="mdi mdi-check"></i> <?= $linha ?></li>
+                <?php endforeach; ?>
               </ul>
-              <a href="<?= htmlspecialchars(ConfiguracaoSite::linkWhatsapp('Olá! Quero saber mais sobre o plano Website (169.000 Kz).')) ?>" class="btn btn-outline btn-block" target="_blank" rel="noopener">Pedir orçamento</a>
+              <a href="<?= htmlspecialchars(ConfiguracaoSite::linkWhatsapp($plano['mensagem_whatsapp'] ?? null)) ?>" class="btn <?= $destaque ? 'btn-primary' : 'btn-outline' ?> btn-block" target="_blank" rel="noopener"><?= htmlspecialchars(($plano['botao_texto'] ?? '') ?: 'Pedir orçamento') ?></a>
             </div>
-
-            <div class="plan plan-featured">
-              <span class="plan-badge">Mais completo</span>
-              <span class="plan-name">Website + Blog</span>
-              <div class="plan-price">259.000 <small>Kz</small></div>
-              <span class="plan-note">Com blog e gestão de conteúdos</span>
-              <ul class="plan-list">
-                <li><i class="mdi mdi-check"></i> Tudo do plano Website</li>
-                <li><i class="mdi mdi-check"></i> Blog para publicar artigos</li>
-                <li><i class="mdi mdi-check"></i> Gestão de conteúdos: edite textos e imagens sem programar</li>
-              </ul>
-              <a href="<?= htmlspecialchars(ConfiguracaoSite::linkWhatsapp('Olá! Quero saber mais sobre o plano Website + Blog (259.000 Kz).')) ?>" class="btn btn-primary btn-block" target="_blank" rel="noopener">Pedir orçamento</a>
-            </div>
+            <?php endforeach; ?>
           </div>
         </div>
       </div>
     </section>
+    <?php endif; ?>
 
+    <?php if ($visivel('contacto')): ?>
     <!-- ─── CONTACTO ─── -->
     <section class="section section-soft" id="contacto">
       <div class="container contact">
         <div class="contact-info">
-          <span class="eyebrow reveal">Contacto</span>
-          <h2 class="section-title reveal">Venha falar connosco ou envie uma mensagem.</h2>
+          <span class="eyebrow reveal"><?= $texto('contacto', 'eyebrow') ?></span>
+          <h2 class="section-title reveal"><?= $texto('contacto', 'titulo') ?></h2>
 
           <ul class="contact-list reveal">
             <li>
@@ -381,7 +353,7 @@ use App\Models\ConfiguracaoSite;
           </ul>
 
           <div class="contact-actions reveal">
-            <a href="<?= htmlspecialchars(ConfiguracaoSite::linkWhatsapp('Olá! Gostaria de mais informações sobre os vossos serviços.')) ?>" class="btn btn-primary btn-lg" target="_blank" rel="noopener"><i class="mdi mdi-whatsapp"></i> WhatsApp</a>
+            <a href="<?= htmlspecialchars(ConfiguracaoSite::linkWhatsapp($campo('contacto', 'mensagem_whatsapp') ?: null)) ?>" class="btn btn-primary btn-lg" target="_blank" rel="noopener"><i class="mdi mdi-whatsapp"></i> WhatsApp</a>
             <a href="mailto:<?= htmlspecialchars($cfg['email']) ?>" class="btn btn-outline btn-lg"><i class="mdi mdi-email-outline"></i> Enviar email</a>
           </div>
         </div>
@@ -393,3 +365,4 @@ use App\Models\ConfiguracaoSite;
         <?php endif; ?>
       </div>
     </section>
+    <?php endif; ?>

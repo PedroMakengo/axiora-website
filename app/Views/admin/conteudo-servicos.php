@@ -27,7 +27,7 @@ $camposServico = static function (bool $novo): void { ?>
         </div>
         <div>
             <label class="rotulo">Descrição</label>
-            <textarea name="descricao" rows="3" required maxlength="400" class="campo"></textarea>
+            <textarea name="descricao" data-editor="curto" required class="campo"></textarea>
             <p class="campo-erro hidden" data-campo="descricao"></p>
         </div>
         <div>
@@ -72,7 +72,7 @@ $camposServico = static function (bool $novo): void { ?>
                             <?php endif; ?>
                             <div class="min-w-0">
                                 <p class="font-semibold text-ink"><?= htmlspecialchars($servico['titulo']) ?></p>
-                                <p class="text-xs text-muted truncate max-w-lg"><?= htmlspecialchars($servico['descricao']) ?></p>
+                                <p class="text-xs text-muted truncate max-w-lg"><?= htmlspecialchars(\Core\Html::texto($servico['descricao'])) ?></p>
                             </div>
                         </div>
                     </td>

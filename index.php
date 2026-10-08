@@ -68,6 +68,16 @@ $router->get('/admin/blog/{id}/editar', [AdminBlogController::class, 'editar']);
 $router->post('/admin/blog/{id}/atualizar', [AdminBlogController::class, 'atualizar']);
 $router->post('/admin/blog/{id}/eliminar', [AdminBlogController::class, 'eliminar']);
 
+// Painel administrativo — secções do site (CMS genérico, definidas em config/secoes.php)
+$router->get('/admin/conteudo/secoes', [AdminConteudoController::class, 'secoes']);
+$router->get('/admin/conteudo/secoes/{chave}', [AdminConteudoController::class, 'secao']);
+$router->post('/admin/conteudo/secoes/{chave}/guardar', [AdminConteudoController::class, 'secaoGuardar']);
+$router->post('/admin/conteudo/secoes/{chave}/visibilidade', [AdminConteudoController::class, 'secaoVisibilidade']);
+$router->post('/admin/conteudo/secoes/{chave}/itens/criar', [AdminConteudoController::class, 'secaoItemCriar']);
+$router->post('/admin/conteudo/itens/{id}/atualizar', [AdminConteudoController::class, 'secaoItemAtualizar']);
+$router->post('/admin/conteudo/itens/{id}/estado', [AdminConteudoController::class, 'secaoItemEstado']);
+$router->post('/admin/conteudo/itens/{id}/remover', [AdminConteudoController::class, 'secaoItemRemover']);
+
 // Painel administrativo — conteúdo da homepage (CMS)
 $router->get('/admin/conteudo/slider', [AdminConteudoController::class, 'slider']);
 $router->post('/admin/conteudo/slider/criar', [AdminConteudoController::class, 'slideCriar']);

@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="<?= BASE ?>/assets/css/admin.css?v=1">
+<link rel="stylesheet" href="<?= BASE ?>/assets/css/admin.css?v=2">
 <script>window.__BASE__ = <?= json_encode(BASE) ?>;</script>
 </head>
 <body class="auth-body">

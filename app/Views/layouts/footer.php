@@ -1,6 +1,8 @@
   </main>
 
   <?php
+  $rodape = \App\Models\SecaoSite::publicas()['rodape']['campos'];
+
   // Lista de serviços do rodapé — a mesma que aparece na homepage.
   $servicosRodape = $servicos ?? (function () {
       try {
@@ -16,16 +18,16 @@
     <div class="container">
       <div class="footer-cta">
         <div>
-          <h2>Pronto para resolver o seu assunto?</h2>
-          <p>Envie-nos uma mensagem — respondemos no horário de atendimento.</p>
+          <h2><?= htmlspecialchars($rodape['cta_titulo']) ?></h2>
+          <p><?= \Core\Html::inline($rodape['cta_texto']) ?></p>
         </div>
-        <a href="<?= htmlspecialchars($waGeral) ?>" class="btn btn-primary btn-lg" target="_blank" rel="noopener"><i class="mdi mdi-whatsapp"></i> Falar no WhatsApp</a>
+        <a href="<?= htmlspecialchars($waGeral) ?>" class="btn btn-primary btn-lg" target="_blank" rel="noopener"><i class="mdi mdi-whatsapp"></i> <?= htmlspecialchars($rodape['cta_botao'] ?: 'Falar no WhatsApp') ?></a>
       </div>
 
       <div class="footer-grid">
         <div class="footer-brand">
           <img src="<?= BASE ?>/assets/images/logo.png" alt="Axiora" width="608" height="236" loading="lazy" />
-          <p>Soluções práticas e confiáveis em Luanda: viagens, viaturas, serviços técnicos, câmbio e logística.</p>
+          <p><?= \Core\Html::inline($rodape['descricao']) ?></p>
           <div class="footer-social">
             <?php foreach (\App\Models\ConfiguracaoSite::REDES as $chave => [$nomeRede, $iconeRede]): ?>
               <?php if (!empty($cfg[$chave])): ?>

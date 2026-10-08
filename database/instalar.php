@@ -117,6 +117,18 @@ foreach ($atualizacoes as $ficheiro) {
 }
 
 // ---------------------------------------------------------------------
+// 2b. Conteúdo inicial das secções do site (config/secoes.php) — só as
+//     secções que ainda não existem na BD; nunca altera o que já foi editado.
+// ---------------------------------------------------------------------
+if ($db->query("SHOW TABLES LIKE 'secoes_site'")->fetch()) {
+    require_once __DIR__ . '/../core/autoload.php';
+    $criadas = (new \App\Models\SecaoSite())->semearIniciais();
+    if ($criadas > 0) {
+        escrever("Conteúdo inicial de {$criadas} secção(ões) do site gravado.");
+    }
+}
+
+// ---------------------------------------------------------------------
 // 3. Administrador inicial
 // ---------------------------------------------------------------------
 $temAdmin = (int) $db->query("SELECT COUNT(*) FROM utilizadores WHERE tipo = 'administrador'")->fetchColumn() > 0;

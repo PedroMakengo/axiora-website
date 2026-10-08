@@ -80,7 +80,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables.net/3.0.3/dataTables.min.js" integrity="sha384-X5KZbfdKx8n/0SCjkS34+fUuuNQe0j9vp4fp1aZ1oF52HL5ZYK9USnnd2KifcQ9l" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables.net-dt/3.0.3/js/dataTables.dataTables.min.js" integrity="sha384-iD7jsPICJBoIgDCWznr0BV9JsUdM7NyRN+ZgkkE9zlFLWmRu/cxQ3woLW58VeV3A" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <?php endif; ?>
-<script src="<?= BASE ?>/assets/js/admin.js?v=1" defer></script>
-<script src="<?= BASE ?>/assets/js/app.js?v=1" defer></script>
+<!-- Editor de texto (Quill), servido localmente: usado nos artigos e em todos os textos do CMS -->
+<script src="<?= BASE ?>/assets/vendor/quill/quill.js?v=2.0.3"></script>
+<script src="<?= BASE ?>/assets/js/admin.js?v=2" defer></script>
+<script src="<?= BASE ?>/assets/js/app.js?v=2" defer></script>
 </body>
 </html>

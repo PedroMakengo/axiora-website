@@ -251,6 +251,23 @@ body.admin-sidebar-colapsada .admin-sidebar__group-items{max-height:none;opacity
 .editor-artigo .ql-editor blockquote{border-left:4px solid #12a596;padding-left:1rem;color:#0e1b2b}
 .editor-artigo .ql-editor.ql-blank::before{color:#94a3b8;font-style:normal}
 
+/* ===================== Editor de texto dos campos do CMS ===================== */
+.editor-campo .ql-toolbar.ql-snow{border:1px solid #e2e8ef;border-radius:12px 12px 0 0;background:#f8fafc;font-family:inherit;padding:6px 8px}
+.editor-campo .ql-container.ql-snow{border:1px solid #e2e8ef;border-top:0;border-radius:0 0 12px 12px;font-family:inherit;font-size:.92rem;background:#fff}
+.editor-campo .ql-editor{min-height:90px;line-height:1.65;color:#314155;padding:.75rem .9rem}
+.editor-campo--rico .ql-editor{min-height:170px}
+.editor-campo--lista .ql-editor{min-height:120px}
+.editor-campo .ql-editor h3{font-size:1.05rem;font-weight:800;color:#0e1b2b;margin:.6em 0 .2em}
+.editor-campo .ql-editor.ql-blank::before{color:#94a3b8;font-style:normal;left:.9rem}
+.editor-campo:focus-within .ql-toolbar.ql-snow,
+.editor-campo:focus-within .ql-container.ql-snow{border-color:#12a596}
+.sheet .editor-campo .ql-tooltip{left:8px!important}
+.editor-campo .ql-editor:focus-visible,.editor-artigo .ql-editor:focus-visible{outline:none}
+
+/* ===================== Campo de ícone (Material Design Icons) ===================== */
+.campo-icone{display:flex;align-items:center;gap:.6rem}
+.campo-icone__preview{width:38px;height:38px;flex:none;border-radius:10px;background:#e3f5f2;color:#0c8478;display:flex;align-items:center;justify-content:center;font-size:1.3rem}
+
 .estado-pill{display:inline-flex;align-items:center;gap:.35rem}
 .estado-pill::before{content:"";width:7px;height:7px;border-radius:99px;background:currentColor}
 

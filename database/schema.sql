@@ -107,7 +107,7 @@ CREATE TABLE IF NOT EXISTS `hero_slides` (
   `rotulo` varchar(40) NOT NULL COMMENT 'Texto curto do separador por baixo do slider',
   `titulo` varchar(160) NOT NULL,
   `titulo_destaque` varchar(160) DEFAULT NULL COMMENT 'Parte final do título, mostrada a cor',
-  `texto` varchar(400) DEFAULT NULL,
+  `texto` text DEFAULT NULL,
   `imagem` varchar(255) NOT NULL,
   `botao_texto` varchar(60) NOT NULL DEFAULT 'Falar no WhatsApp',
   `mensagem_whatsapp` varchar(255) DEFAULT NULL,
@@ -127,7 +127,7 @@ INSERT IGNORE INTO `hero_slides` (`id`, `rotulo`, `titulo`, `titulo_destaque`, `
 CREATE TABLE IF NOT EXISTS `servicos` (
   `id` int NOT NULL AUTO_INCREMENT,
   `titulo` varchar(120) NOT NULL,
-  `descricao` varchar(400) NOT NULL,
+  `descricao` text NOT NULL,
   `imagem` varchar(255) DEFAULT NULL,
   `imagem_alt` varchar(160) DEFAULT NULL,
   `mensagem_whatsapp` varchar(255) DEFAULT NULL,
@@ -149,7 +149,7 @@ CREATE TABLE IF NOT EXISTS `testemunhos` (
   `id` int NOT NULL AUTO_INCREMENT,
   `nome` varchar(120) NOT NULL,
   `descricao` varchar(160) DEFAULT NULL COMMENT 'Profissão e serviço usado, ex.: Empresário · Visto VFS',
-  `texto` varchar(600) NOT NULL,
+  `texto` text NOT NULL,
   `estrelas` tinyint NOT NULL DEFAULT 5,
   `ordem` int NOT NULL DEFAULT 0,
   `ativo` tinyint(1) NOT NULL DEFAULT 1,
@@ -161,6 +161,30 @@ INSERT IGNORE INTO `testemunhos` (`id`, `nome`, `descricao`, `texto`, `estrelas`
 (1, 'Carlos M.', 'Empresário · Visto VFS', 'A Axiora tratou de todo o meu processo de visto com uma eficiência que não esperava. Em menos de uma semana tinha tudo resolvido.', 5, 1),
 (2, 'Ana P.', 'Profissional liberal · Gestão de viaturas', 'Entreguei a minha viatura à Axiora para gestão e os resultados superaram as expectativas. Atendimento profissional e relatórios transparentes.', 5, 2),
 (3, 'João F.', 'Director comercial · Correio internacional', 'Precisava de enviar documentos urgentes para o exterior e resolveram em tempo recorde. Rápido, seguro e com confirmação de entrega.', 5, 3);
+
+-- ---------------------------------------------------------------------
+-- Secções da homepage (CMS) — definidas em config/secoes.php.
+-- O conteúdo inicial é gravado pelo instalador (database/instalar.php).
+-- ---------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS `secoes_site` (
+  `chave` varchar(60) NOT NULL,
+  `conteudo` longtext NOT NULL COMMENT 'JSON com os campos da secção',
+  `visivel` tinyint(1) NOT NULL DEFAULT 1,
+  `atualizado_em` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`chave`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `secao_itens` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `secao` varchar(60) NOT NULL,
+  `grupo` varchar(40) NOT NULL,
+  `dados` longtext NOT NULL COMMENT 'JSON com os campos do item',
+  `ordem` int NOT NULL DEFAULT 0,
+  `ativo` tinyint(1) NOT NULL DEFAULT 1,
+  `criado_em` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `secao_grupo` (`secao`, `grupo`, `ordem`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ---------------------------------------------------------------------
 -- Blog: categorias e artigos (notícias, dicas, comunicados)

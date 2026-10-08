@@ -2412,3 +2412,48 @@ ol {
     font-size: 1.05rem;
   }
 }
+
+/* ═══════════════════════════════════════════
+   TEXTOS DO CMS (editor de texto)
+═══════════════════════════════════════════ */
+.texto-rico h3 {
+  font-size: 1.15rem;
+  margin: 18px 0 8px;
+}
+.texto-rico ul,
+.texto-rico ol {
+  padding-left: 1.3em;
+  margin-bottom: 16px;
+}
+.texto-rico li + li {
+  margin-top: 4px;
+}
+.texto-rico li::marker {
+  color: var(--teal);
+}
+.texto-rico blockquote {
+  border-left: 3px solid var(--teal);
+  padding-left: 14px;
+  margin-bottom: 16px;
+  color: var(--ink);
+}
+.texto-rico a {
+  color: var(--teal-dark);
+  font-weight: 600;
+}
+.mvv-panel.texto-rico p + p,
+.mvv-panel.texto-rico ul,
+.mvv-panel.texto-rico ol {
+  margin-top: 10px;
+}
+.mvv-panel.texto-rico ul,
+.mvv-panel.texto-rico ol {
+  margin-bottom: 0;
+}
+.section-lead a,
+.service-body p a,
+.why-list p a,
+.step p a {
+  color: inherit;
+  font-weight: 700;
+}

@@ -8,8 +8,6 @@ $endpoint = $editar ? BASE . '/admin/blog/' . (int) $artigo['id'] . '/atualizar'
 $publicadoEmInput = $a['publicado_em'] ? date('Y-m-d\TH:i', strtotime($a['publicado_em'])) : '';
 $publico = $editar && $a['estado'] === 'publicado' && $a['publicado_em'] && strtotime($a['publicado_em']) <= time();
 ?>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/quill/2.0.3/quill.snow.min.css">
-
 <section class="admin-container pb-14">
     <div class="admin-page-head">
         <div>
@@ -124,15 +122,15 @@ $publico = $editar && $a['estado'] === 'publicado' && $a['publicado_em'] && strt
     </form>
 </section>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/quill/2.0.3/quill.min.js"></script>
 <script>
-(function () {
+// O Quill é carregado no rodapé do painel (layouts/admin-footer.php) — arranca quando a página estiver pronta.
+document.addEventListener("DOMContentLoaded", function () {
     var BASE = window.__BASE__ || '';
     var campoConteudo = document.getElementById('campo-conteudo');
     var form = document.getElementById('form-artigo');
 
     if (!window.Quill) {
-        // Sem acesso ao CDN: edita-se o HTML directamente na caixa de texto.
+        // Se o editor não carregar, edita-se o HTML directamente na caixa de texto.
         document.getElementById('editor').parentNode.classList.add('hidden');
         campoConteudo.classList.remove('hidden');
         campoConteudo.classList.add('campo', 'font-mono', 'text-xs');
@@ -212,5 +210,5 @@ $publico = $editar && $a['estado'] === 'publicado' && $a['publicado_em'] && strt
     window.addEventListener('beforeunload', function (e) {
         if (alterado) { e.preventDefault(); e.returnValue = ''; }
     });
-})();
+});
 </script>

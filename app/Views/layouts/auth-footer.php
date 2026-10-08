@@ -4,7 +4,7 @@
         © <?= date('Y') ?> <?= htmlspecialchars(NOME_CURTO) ?>
     </p>
 </main>
-<script src="<?= BASE ?>/assets/js/admin.js?v=1" defer></script>
-<script src="<?= BASE ?>/assets/js/app.js?v=1" defer></script>
+<script src="<?= BASE ?>/assets/js/admin.js?v=2" defer></script>
+<script src="<?= BASE ?>/assets/js/app.js?v=2" defer></script>
 </body>
 </html>

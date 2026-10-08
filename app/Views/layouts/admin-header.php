@@ -12,7 +12,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="<?= BASE ?>/assets/css/admin.css?v=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="<?= BASE ?>/assets/vendor/quill/quill.snow.css?v=2.0.3">
+<link rel="stylesheet" href="<?= BASE ?>/assets/css/admin.css?v=2">
 <script>window.__BASE__ = <?= json_encode(BASE) ?>;</script>
 </head>
 <body class="admin-body">
@@ -30,6 +32,7 @@ $gruposAdmin = [
         'blog-categorias' => ['label' => 'Categorias', 'href' => '/admin/blog/categorias', 'icon' => 'tag',  'modulo' => 'blog'],
     ],
     'Conteúdo do site' => [
+        'conteudo-secoes'      => ['label' => 'Secções do site', 'href' => '/admin/conteudo/secoes',      'icon' => 'sections', 'modulo' => 'conteudo'],
         'conteudo-slider'      => ['label' => 'Slider',      'href' => '/admin/conteudo/slider',      'icon' => 'layout', 'modulo' => 'conteudo'],
         'conteudo-servicos'    => ['label' => 'Serviços',    'href' => '/admin/conteudo/servicos',    'icon' => 'briefcase', 'modulo' => 'conteudo'],
         'conteudo-testemunhos' => ['label' => 'Testemunhos', 'href' => '/admin/conteudo/testemunhos', 'icon' => 'quote', 'modulo' => 'conteudo'],
@@ -44,6 +47,7 @@ $iconesAdmin = [
     'grid'      => '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',
     'news'      => '<path d="M4 4h13a1 1 0 0 1 1 1v14a2 2 0 0 0 2 2H6a2 2 0 0 1-2-2V4Z"/><path d="M18 9h2a1 1 0 0 1 1 1v9a2 2 0 0 1-2 2"/><path d="M8 8h6M8 12h6M8 16h4"/>',
     'tag'       => '<path d="M12.6 2H4a2 2 0 0 0-2 2v8.6a2 2 0 0 0 .6 1.4l9.4 9.4a2 2 0 0 0 2.8 0l7.4-7.4a2 2 0 0 0 0-2.8L12.6 2Z"/><circle cx="8" cy="8" r="1.5" fill="currentColor" stroke="none"/>',
+    'sections'  => '<rect x="3" y="3" width="18" height="5" rx="1.5"/><rect x="3" y="10" width="18" height="5" rx="1.5"/><rect x="3" y="17" width="18" height="4" rx="1.5"/>',
     'layout'    => '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/>',
     'briefcase' => '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>',
     'quote'     => '<path d="M9 7H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h2v2a2 2 0 0 1-2 2"/><path d="M19 7h-4a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h2v2a2 2 0 0 1-2 2"/>',

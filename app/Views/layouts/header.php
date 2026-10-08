@@ -54,7 +54,7 @@ $telCurto = preg_replace('/^\+?244\s*/', '', (string) $cfg['telefone']);
   <?php if (!empty($seo['preload'])): ?>
   <link rel="preload" as="image" href="<?= BASE . '/' . htmlspecialchars($seo['preload']) ?>" />
   <?php endif; ?>
-  <link rel="stylesheet" href="<?= BASE ?>/assets/css/main.css?v=3" />
+  <link rel="stylesheet" href="<?= BASE ?>/assets/css/main.css?v=4" />
 
   <?php if (!empty($seo['jsonld'])): ?>
   <script type="application/ld+json"><?= json_encode($seo['jsonld'], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG) ?></script>
