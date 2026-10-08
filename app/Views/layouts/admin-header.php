@@ -77,20 +77,20 @@ if ($utilizadorAtual) {
         </div>
 
         <nav class="admin-sidebar__nav" aria-label="Secções do painel">
-            <?php foreach ($gruposAdmin as $grupoNome => $itens): ?>
+            <?php foreach ($gruposAdmin as $grupoNome => $itensMenu): ?>
             <?php
-            $itensVisiveis = array_filter($itens, function ($aba, $chave) {
-                return Permissoes::tem($aba['modulo'] ?? $chave, 'ver');
+            $itensVisiveis = array_filter($itensMenu, function ($abaMenu, $chaveMenu) {
+                return Permissoes::tem($abaMenu['modulo'] ?? $chaveMenu, 'ver');
             }, ARRAY_FILTER_USE_BOTH);
             if (empty($itensVisiveis)) continue;
             $grupoTemAtivo = array_key_exists($paginaAtual, $itensVisiveis);
             $chaveGrupo = 'g-' . preg_replace('/[^a-z0-9]+/', '-', mb_strtolower($grupoNome));
             ?>
-            <?php if (count($itensVisiveis) === 1 && count($itens) === 1): ?>
-                <?php foreach ($itensVisiveis as $chave => $aba): ?>
-                <a href="<?= BASE . $aba['href'] ?>" class="admin-sidebar__link<?= $paginaAtual === $chave ? ' is-active' : '' ?>">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><?= $iconesAdmin[$aba['icon']] ?></svg>
-                    <span class="admin-sidebar__label"><?= htmlspecialchars($aba['label']) ?></span>
+            <?php if (count($itensVisiveis) === 1 && count($itensMenu) === 1): ?>
+                <?php foreach ($itensVisiveis as $chaveMenu => $abaMenu): ?>
+                <a href="<?= BASE . $abaMenu['href'] ?>" class="admin-sidebar__link<?= $paginaAtual === $chaveMenu ? ' is-active' : '' ?>">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><?= $iconesAdmin[$abaMenu['icon']] ?></svg>
+                    <span class="admin-sidebar__label"><?= htmlspecialchars($abaMenu['label']) ?></span>
                 </a>
                 <?php endforeach; ?>
             <?php else: ?>
@@ -100,10 +100,10 @@ if ($utilizadorAtual) {
                         <svg class="admin-sidebar__group-chevron" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg>
                     </button>
                     <div class="admin-sidebar__group-items">
-                        <?php foreach ($itensVisiveis as $chave => $aba): ?>
-                        <a href="<?= BASE . $aba['href'] ?>" class="admin-sidebar__link<?= $paginaAtual === $chave ? ' is-active' : '' ?>">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><?= $iconesAdmin[$aba['icon']] ?></svg>
-                            <span class="admin-sidebar__label"><?= htmlspecialchars($aba['label']) ?></span>
+                        <?php foreach ($itensVisiveis as $chaveMenu => $abaMenu): ?>
+                        <a href="<?= BASE . $abaMenu['href'] ?>" class="admin-sidebar__link<?= $paginaAtual === $chaveMenu ? ' is-active' : '' ?>">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><?= $iconesAdmin[$abaMenu['icon']] ?></svg>
+                            <span class="admin-sidebar__label"><?= htmlspecialchars($abaMenu['label']) ?></span>
                         </a>
                         <?php endforeach; ?>
                     </div>
